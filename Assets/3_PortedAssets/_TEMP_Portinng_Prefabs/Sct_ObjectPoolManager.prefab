@@ -1,0 +1,154 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7239430720482955499
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1804352898425398590}
+  - component: {fileID: 6937713111701379386}
+  - component: {fileID: 255992856399184703}
+  - component: {fileID: 6559144886216335318}
+  m_Layer: 0
+  m_Name: Sct_ObjectPoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1804352898425398590
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7239430720482955499}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.87899995, y: 0, z: 1.5449998}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6937713111701379386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7239430720482955499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7844e94dcdf5ce49839a70188738eac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pools_List:
+  - tag_OfPool: Projectile_Prefab_Front_Gun_TypeA
+    prefab_OfPoolGameObjects: {fileID: 2363905566622521906, guid: dc3793fce9e46954d8a20f39e51309ff,
+      type: 3}
+    size_OfPool: 3
+  - tag_OfPool: Projectile_Prefab_Vertical_Missile_TypeA
+    prefab_OfPoolGameObjects: {fileID: 8691522499691769599, guid: 54429eb9dff6bf648a5558ecccaaf0f3,
+      type: 3}
+    size_OfPool: 3
+  - tag_OfPool: Projectile_Prefab_Wing_Missile_TypeA
+    prefab_OfPoolGameObjects: {fileID: 7018111197957328049, guid: 03218ce727cd090429d9ba69ffc88f2c,
+      type: 3}
+    size_OfPool: 3
+  - tag_OfPool: Projectile_Prefab_Front_AutoCannon
+    prefab_OfPoolGameObjects: {fileID: 1163463250294092910, guid: 422c1aeceaee8cd42bec58a992e92d42,
+      type: 3}
+    size_OfPool: 10
+  - tag_OfPool: ExplosionTypeB
+    prefab_OfPoolGameObjects: {fileID: 4448235544832384541, guid: dbb2c9c7e2604e04091cf62ea444dfa2,
+      type: 3}
+    size_OfPool: 2
+  - tag_OfPool: ExplosionTypeA
+    prefab_OfPoolGameObjects: {fileID: 559337387741747502, guid: 1dd5f263b058ae042af6617137db1be4,
+      type: 3}
+    size_OfPool: 2
+--- !u!114 &255992856399184703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7239430720482955499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b08a7e26b3be69f488f672be2bc662f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6559144886216335318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7239430720482955499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f15cf50cffb8e364d908aa3543631329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pools_List:
+  - tag_OfPool: PS_BuildingBurn
+    prefab_OfPoolGameObjects: {fileID: 5245274758438460201, guid: 2b918e0c721c5d84390c3fbcece5fda0,
+      type: 3}
+    size_OfPool: 10
+  - tag_OfPool: Building_Test
+    prefab_OfPoolGameObjects: {fileID: 5584636165210017092, guid: 41733180559204246adf47962f8a6c3b,
+      type: 3}
+    size_OfPool: 1
+  - tag_OfPool: BuildingTypeC
+    prefab_OfPoolGameObjects: {fileID: 6979963528889166171, guid: 49cf254d29788be4daafc8da3eb40958,
+      type: 3}
+    size_OfPool: 1
+  - tag_OfPool: BuildingTypeD
+    prefab_OfPoolGameObjects: {fileID: 3403465701798057122, guid: 5d1e55d3db5787444a8c96f1bf3560c1,
+      type: 3}
+    size_OfPool: 1
+  - tag_OfPool: BuildingTypeE
+    prefab_OfPoolGameObjects: {fileID: 2238528962591045744, guid: f78ef173ec995ef4eb95f540283d4de4,
+      type: 3}
+    size_OfPool: 1
+  - tag_OfPool: BuildingTypeG
+    prefab_OfPoolGameObjects: {fileID: 4227485590162675046, guid: 227c094e378d41c4290154607745fd03,
+      type: 3}
+    size_OfPool: 1
+  - tag_OfPool: GameBuildingA
+    prefab_OfPoolGameObjects: {fileID: 729783936438283732, guid: c2e8c093ce98a344c8f48239b79ccb58,
+      type: 3}
+    size_OfPool: 1
+  - tag_OfPool: GameBuildingB
+    prefab_OfPoolGameObjects: {fileID: 5434247689186748497, guid: 78d9727cc562b384b8a3b6d6800cfa04,
+      type: 3}
+    size_OfPool: 1
+  - tag_OfPool: GameBuildingC
+    prefab_OfPoolGameObjects: {fileID: 4241676752663177400, guid: 2c8fee87d6323b14bbd5d25e56e91595,
+      type: 3}
+    size_OfPool: 1
+  - tag_OfPool: GameBuildingD
+    prefab_OfPoolGameObjects: {fileID: 7032636268475043404, guid: 697c820c20cf26d448ab9e2830fd5807,
+      type: 3}
+    size_OfPool: 1
+  - tag_OfPool: GameBuildingE
+    prefab_OfPoolGameObjects: {fileID: 395528807312895057, guid: 048673889009a7e4895b72d58d7e602b,
+      type: 3}
+    size_OfPool: 1
+  - tag_OfPool: GameBuildingF
+    prefab_OfPoolGameObjects: {fileID: 8026731031159459875, guid: 7d67610369a09be4fa0323e6ddde025c,
+      type: 3}
+    size_OfPool: 1
+  - tag_OfPool: GameBuildingG
+    prefab_OfPoolGameObjects: {fileID: 1744908805867633619, guid: b0ebcf7096affca47adb7101a7158a65,
+      type: 3}
+    size_OfPool: 1
+  - tag_OfPool: GameBuildingH
+    prefab_OfPoolGameObjects: {fileID: 4378719506855733873, guid: 1112f8a15b11bde4a94199203aa45d37,
+      type: 3}
+    size_OfPool: 1

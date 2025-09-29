@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/2_TempDev/2_BasicPortV1/BasicPort.unity
+    guid: 9ae3284df08fd8b49ae759d5bbf84644
+  m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 37bc78b03bfec3f46a8356dc9824ac1b, type: 2}
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000, guid: bd403ee3266338e4687ebe0a0399bd3b, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: fb0e2cf2387a88b4d8a7d7f81f5f5e80, type: 2}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: b8a95218123437b4a8973587b8738f32, type: 2}
+  m_UseUCBPForAssetBundles: 0
