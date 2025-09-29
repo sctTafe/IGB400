@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 
 public class PhoneTiltInput : MonoBehaviour
 {
+    [Header("Debugging")]
+    [SerializeField] private bool _isDebugging = false;
+
     [Header("Input Actions")]
     [SerializeField] private PlayerInput _playerInput;
 
@@ -98,7 +101,7 @@ public class PhoneTiltInput : MonoBehaviour
 
             // Fallback for testing in editor or devices without accelerometer
             _rawTiltValue = input_Move.x * 0.5f;
-            Debug.LogWarning("Using fallback input - no accelerometer available");
+            if(_isDebugging) Debug.LogWarning("Using fallback input - no accelerometer available");
         }
 
         // Apply dynamic dead zone
