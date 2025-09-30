@@ -40,14 +40,18 @@ namespace Scott.Barley.v2
         [SerializeField] public UnityEvent HighDamageTrigger;
         [SerializeField] public UnityEvent DeathTrigger;
 
+        [Header("Score")]
+        [SerializeField] private int _OnDeathScoreValue; 
+
         // Is On Player
         Player_Stats player_Stats;
-
+        private Score_Trigger _ScoreTrigger;
 
         private void Start()
         {
             // missionList = GameObject.Find("ScriptHolder_Manager").GetComponent<MissionList>();
             cach_DestructibleBuildingControler();
+            _ScoreTrigger = GetComponent<Score_Trigger>();
         }
      
 
@@ -141,6 +145,11 @@ namespace Scott.Barley.v2
         {
             if (DebugON) Debug.Log("Extream Damage Taken By: Target IS DEAD!!!!: " + transform.gameObject.name + "; its currently at: " + remaingPersentageHealth + "% health!");
             DeathTrigger?.Invoke();
+
+            if (_ScoreTrigger != null)
+                _ScoreTrigger.fn_AddScore(_OnDeathScoreValue);
+
+
 
             if (missionTargetMode) {
                 Invoke_targetKill_MissionUI();
