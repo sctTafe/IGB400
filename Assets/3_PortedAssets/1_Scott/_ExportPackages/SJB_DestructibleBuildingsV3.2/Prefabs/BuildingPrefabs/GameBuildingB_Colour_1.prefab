@@ -68,19 +68,8 @@ MonoBehaviour:
       m_Calls: []
   DeathTrigger:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2552407873442235553}
-        m_TargetAssemblyTypeName: Score_Trigger, Assembly-CSharp
-        m_MethodName: fn_AddScore
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: -20
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+  _OnDeathScoreValue: 0
 --- !u!114 &2552407873442235559
 MonoBehaviour:
   m_ObjectHideFlags: 0

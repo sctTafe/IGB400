@@ -45,13 +45,13 @@ namespace Scott.Barley.v2
 
         // Is On Player
         Player_Stats player_Stats;
-        private Score_Trigger _ScoreTrigger;
+        private Score_TriggerRelay _ScoreTrigger;
 
         private void Start()
         {
             // missionList = GameObject.Find("ScriptHolder_Manager").GetComponent<MissionList>();
             cach_DestructibleBuildingControler();
-            _ScoreTrigger = GetComponent<Score_Trigger>();
+            _ScoreTrigger = GetComponent<Score_TriggerRelay>();
         }
      
 

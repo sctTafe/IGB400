@@ -27,7 +27,7 @@ public class Score_Singelton : Singleton<Score_Singelton>
     public void fn_AddToScrap(int valueToAdd)
     {
         _scrap += valueToAdd;
-        _score_txt.text = _scrap.ToString();
+        _scrap_txt.text = _scrap.ToString();
     }
 
 
