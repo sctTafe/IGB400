@@ -21,7 +21,7 @@ namespace Scott.Barley.v2 {
     [RequireComponent(typeof(Rigidbody))]
     public class Projectile_VerticalLaunch : Projectile
     {
-        [SerializeField] PooledParticalsActivation pooledParticalsActivation;
+        [SerializeField] PooledParticalsActivation_Singleton pooledParticalsActivation;
         [SerializeField] string CollisionParticalEffect_Tag = "PS_Explosion_A_V1";
 
 
@@ -64,7 +64,7 @@ namespace Scott.Barley.v2 {
         {
             base.Awake();
 
-            pooledParticalsActivation = FindObjectOfType<PooledParticalsActivation>();
+            pooledParticalsActivation = PooledParticalsActivation_Singleton.Instance;
             rocketRigidbody = this.GetComponent<Rigidbody>();
             rocketTransform = this.transform;
             stage2time = stage1Time / 4;
@@ -95,7 +95,7 @@ namespace Scott.Barley.v2 {
             }
             if (pooledParticalsActivation != null) 
             {
-                pooledParticalsActivation = FindObjectOfType<PooledParticalsActivation>();
+                pooledParticalsActivation = PooledParticalsActivation_Singleton.Instance;
                 Debug.LogWarning("::Projectile_VerticalLaunch:: Rocket pooledParticalsActivation Error!");
             }
 
@@ -140,7 +140,7 @@ namespace Scott.Barley.v2 {
 
             if (pooledParticalsActivation != null)
             {
-                pooledParticalsActivation.DequeueParticalEffect_ByTag(CollisionParticalEffect_Tag, this.transform.position, transform.rotation);
+                GameObject go = pooledParticalsActivation.fn_DequeueParticalEffect_ByTag(CollisionParticalEffect_Tag, this.transform.position, transform.rotation);
             }
             
         }

@@ -70,12 +70,12 @@ public class PhoneTiltInput : MonoBehaviour
         if (_playerInput == null && Accelerometer.current != null)
         {
             InputSystem.EnableDevice(Accelerometer.current);
-            Debug.Log("Using direct accelerometer access");
+            if(_isDebugging) Debug.Log("Using direct accelerometer access");
         }
 
         if (Accelerometer.current == null)
         {
-            Debug.LogWarning("No accelerometer found on this device!");
+            if (_isDebugging) Debug.LogWarning("No accelerometer found on this device!");
         }
     }
 

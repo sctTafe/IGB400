@@ -37,7 +37,7 @@ namespace Scott.Barley.v2 {
         }
 
         /// <summary>
-        ///  CodeToExecuteOnCollsion
+        ///  CodeToExecuteOnCollsion: Register Hit, Get Object Health, deduct health
         /// </summary>
         /// <param name="col"></param>
         protected virtual void CodeToExecuteOnCollsion(Collision col)
@@ -115,6 +115,12 @@ namespace Scott.Barley.v2 {
             // Returns to pool on any collision: Run any interaction code prior to this.
             RetrunToPool();
         }
+
+        public void fn_SetDamageInflicted(int dmgOnImpact)
+        {
+            projectileDamageInflicted = dmgOnImpact;
+        }
+
 
         private void RetrunToPool()
         {

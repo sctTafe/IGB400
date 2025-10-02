@@ -18,6 +18,8 @@ namespace Scott.Barley.v2 {
         public float fireCooldown = 0.5f;
         public string weaponName;
         public float _cooldownTimer;
+        [Header("Modifiable Value")]
+        public int _damageOnInpact;
 
 
         //public GameObject projectile_Prefab;
@@ -31,8 +33,6 @@ namespace Scott.Barley.v2 {
         {
             _cooldownTimer = Time.time + fireCooldown;
         }
-
-
 
         public void fnc_DecressAmmoAmount(int ammount) {
             if (ammount > 0) remainingAmmo -= ammount;

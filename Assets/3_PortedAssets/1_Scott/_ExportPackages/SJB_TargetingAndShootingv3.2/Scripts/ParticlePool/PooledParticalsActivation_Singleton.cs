@@ -7,7 +7,7 @@ using Scott.Barley.v2;
 namespace Scott.Barley.v2
 {
 
-    public class PooledParticalsActivation : MonoBehaviour
+    public class PooledParticalsActivation_Singleton : Singleton<PooledParticalsActivation_Singleton>
     {
 
         // The Projectile Pool Instance
@@ -20,11 +20,14 @@ namespace Scott.Barley.v2
         }
 
 
-        public void DequeueParticalEffect_ByTag(string tag_PooledTagName, Vector3 position, Quaternion rotation)
+        public GameObject fn_DequeueParticalEffect_ByTag(string tag_PooledTagName, Vector3 position, Quaternion rotation)
         {
+            GameObject go = new GameObject(tag_PooledTagName);
+
             if (projectiles_Pool != null)
             {
                 GameObject projectileGO = projectiles_Pool.ProjectileDequeueFromPool(tag_PooledTagName, position, rotation);
+                go = projectileGO;
             } 
             else
             {
@@ -32,9 +35,11 @@ namespace Scott.Barley.v2
                 if (projectiles_Pool != null)
                 {
                     GameObject projectileGO = projectiles_Pool.ProjectileDequeueFromPool(tag_PooledTagName, position, rotation);
+                    go = projectileGO;
                 }
             }
 
+            return go;
         }
 
         

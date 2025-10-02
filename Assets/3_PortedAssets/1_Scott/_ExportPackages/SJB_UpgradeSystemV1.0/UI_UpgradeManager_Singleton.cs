@@ -2,24 +2,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UpgradeManager : MonoBehaviour
+public class UI_UpgradeManager_Singleton : Singleton<UI_UpgradeManager_Singleton>
 {
     [Header("UI References")]
     public GameObject upgradeCanvas;                    // The entire canvas or panel to enable/disable
     public GameObject[] upgradeOptions;                 // All upgrade panels (child panels with buttons)
+    private Canvas _canvas;
 
     [Header("Upgrade Settings")]
     public int numberOfUpgradesToShow = 3;              // Number of options to show
-    public int pointsRequiredToTrigger = 100;           // Example condition
+    //public int pointsRequiredToTrigger = 100;           // Example condition
 
     [Header("Player")]
     public int playerPoints = 0;                        // Example player points (update based on your game)
 
     private List<GameObject> activeUpgrades = new List<GameObject>();
 
+ 
     void Start()
     {
-        upgradeCanvas.SetActive(false);
+        _canvas = upgradeCanvas.GetComponent<Canvas>();
+        _canvas.enabled = false;
+        //upgradeCanvas.SetActive(false);
 
         // Disable all upgrade panels at start
         foreach (var panel in upgradeOptions)
@@ -38,15 +42,12 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
-    void Update()
+    public void fn_CallUpgrade()
     {
-        //playerPoints >= pointsRequiredToTrigger
-        // Temporary trigger: press U to open upgrade panel (if enough points)
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            ShowUpgradePanel();
-        }
-    }
+
+        ShowUpgradePanel();
+        Time.timeScale = 0f; // Pauses the game
+    } 
 
     void ShowUpgradePanel()
     {
@@ -70,7 +71,8 @@ public class UpgradeManager : MonoBehaviour
         }
 
         // Show canvas
-        upgradeCanvas.SetActive(true);
+        //upgradeCanvas.SetActive(true);
+        _canvas.enabled = true;
     }
 
     void OnUpgradeSelected(GameObject selectedPanel)
@@ -89,6 +91,7 @@ public class UpgradeManager : MonoBehaviour
         // TODO: Fill this in based on which panel was clicked
         // Could use a component or script on the panel to identify what upgrade it represents
         Debug.Log("Applying upgrade logic for: " + panel.name);
+        Time.timeScale = 1f; // Resumes the game
     }
 
     void HideUpgradePanel()
@@ -100,6 +103,13 @@ public class UpgradeManager : MonoBehaviour
         }
 
         activeUpgrades.Clear();
-        upgradeCanvas.SetActive(false);
+        //upgradeCanvas.SetActive(false);
+        _canvas.enabled = false;
+    }
+
+    [ContextMenu("Toggle Canvas")]
+    private void ToggleCanvas()
+    {
+        ShowUpgradePanel();
     }
 }

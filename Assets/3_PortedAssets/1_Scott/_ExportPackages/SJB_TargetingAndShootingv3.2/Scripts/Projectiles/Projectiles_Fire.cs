@@ -65,6 +65,17 @@ namespace Scott.Barley.v2
         [SerializeField] float projectileVelocity;
         int currentWeaponTypeID;
 
+        [Header("JoyStickInputActions")]
+        // Input State
+        public bool _Up20_Action;
+        public bool _Up80_Action;
+        public bool _Down20_Action;
+        public bool _Down80_Action;
+        public bool _Left20_Action;
+        public bool _Left80_Action;
+        public bool _Right20_Action;
+        public bool _Right80_Action;
+
 
         private void Awake()
         {
@@ -86,15 +97,7 @@ namespace Scott.Barley.v2
 
 
 
-        // Input State
-        public bool _Up20_Action;
-        public bool _Up80_Action;
-        public bool _Down20_Action;
-        public bool _Down80_Action;
-        public bool _Left20_Action;
-        public bool _Left80_Action;
-        public bool _Right20_Action;
-        public bool _Right80_Action;
+
 
 
         void Update()
@@ -162,40 +165,6 @@ namespace Scott.Barley.v2
                 TryShootWeaponSlot(weaponSlot3, 3);
         }
 
-
-
-        private void Input_HandlePlayerInput_OLD()
-        {
-            //---------------- UPDATE NEEDED, SHOULD USE EVENTS FOR KEYS INPUT ----------------
-            // ------------   Need to UnHard Code these ----------------
-            if (Input.GetButtonDown("WepSlot1"))
-            {
-                //WeaponSlot1_CycleThroughAvalibleWeapons();
-            }
-            if (Input.GetButtonDown("WepSlot2"))
-            {
-                //WeaponSlot2_CycleThroughAvalibleWeapons();
-            }
-
-
-            if (Input.GetButton("Fire1"))
-            {
-                //ShootWeaponSlot1();
-            }
-            if (Input.GetButtonDown("Fire2"))
-            {
-                //ShootWeaponSlot2();
-            }
-            //----------------------------------------------------------------------------------
-
-            //if (DebugModeOn)
-            //{
-            //    if (Input.GetKey(KeyCode.Space))
-            //       //Test_ByKeyDown();
-            //    if (Input.GetKeyDown(KeyCode.R))              
-            //        //Test_Reload();            
-            //}
-        }
 
         private void FixedUpdate()
         {
@@ -389,7 +358,7 @@ namespace Scott.Barley.v2
                 }
 
                 //---- IS SHOOTING ----
-                Shoot_DequeueProjectileFromPoolByTagAndLauncherType_v2(projectilePoolRef, launcherType, targetTracking);
+                Shoot_DequeueProjectileFromPoolByTagAndLauncherType_v2(weaponSlotData, projectilePoolRef, launcherType, targetTracking);
                 //decrease the ammo
                 weaponSlotData.fnc_DecressAmmoAmount(1);
                 //trigger wait timer
@@ -428,7 +397,7 @@ namespace Scott.Barley.v2
         /// </summary>
         /// <param name="currentWeaponTag"> This is used so the 'Projectiles_Pool' knows which object to retrive</param>
         /// <param name="launcherType"> This is used so the function knows which 'start' point; 'shootFromPosition' to use</param>
-        private void Shoot_DequeueProjectileFromPoolByTagAndLauncherType_v2(string currentWeaponTag, int launcherType, bool targetTracking = false)
+        private void Shoot_DequeueProjectileFromPoolByTagAndLauncherType_v2(Projectiles_WeaponSlotData wsd, string currentWeaponTag, int launcherType, bool targetTracking = false)
         {
             
             
@@ -475,9 +444,11 @@ namespace Scott.Barley.v2
                 if (DebugModeOn) Debug.Log("Projectile Target Tracking = " + targetTracking + ", Launch Type = " + launcherType);
                 if (launcherType == 3) // Vertical Launcher
                 {
-                    projectileGO.GetComponent<Projectile_VerticalLaunch>().Set_TargetTransform(targetTransform);
-                    projectileGO.GetComponent<Projectile_VerticalLaunch>().Set_TargetTrackingIsEnabled(true);
-                    projectileGO.GetComponent<Projectile_VerticalLaunch>().Set_InitialMovementSpeed(initialForwardVelocity_LaunchPoints);
+                    var Projectile_VerticalLaunch = projectileGO.GetComponent<Projectile_VerticalLaunch>();
+                    Projectile_VerticalLaunch.Set_TargetTransform(targetTransform);
+                    Projectile_VerticalLaunch.Set_TargetTrackingIsEnabled(true);
+                    Projectile_VerticalLaunch.Set_InitialMovementSpeed(initialForwardVelocity_LaunchPoints);
+                    Projectile_VerticalLaunch.fn_SetDamageInflicted()
                 } else
                 if (launcherType == 2) // Horizontal Launcher
                 {
@@ -489,6 +460,7 @@ namespace Scott.Barley.v2
                 if (launcherType == 1)
                 {
                     // need to wite this still......
+                    var Projectile_MashineGun = projectileGO.GetComponent<Projectile_MashineGun>();
                 } else
                 {
                     Debug.LogWarning("::Warning!:: Projectiles_Fire: Incorrect targetTracking setting of: " + targetTracking);
@@ -505,7 +477,7 @@ namespace Scott.Barley.v2
             
 
         }
-         private void Shoot_Dequeue_LaunchPointVelocity()
+        private void Shoot_Dequeue_LaunchPointVelocity()
         {
             initialForwardVelocity_LaunchPoints = Vector3.Dot(playerRigidbody_LaunchPointRigidBody.linearVelocity, playerTransform.forward);
             //initialForwardVelocity_LaunchPoints = playerRigidbody_LaunchPointRigidBody.velocity.magnitude;

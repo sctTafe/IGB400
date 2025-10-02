@@ -15,7 +15,7 @@ namespace Scott.Barley.v2
     public class Projectile_WingLaunch : Projectile
     {
 
-        [SerializeField] PooledParticalsActivation pooledParticalsActivation;
+        [SerializeField] PooledParticalsActivation_Singleton pooledParticalsActivation;
         [SerializeField] string CollisionParticalEffect_Tag = "PS_Explosion_A_V1";
 
         [SerializeField] float rocketMaxAngularRotationSpeed = 3f;
@@ -33,7 +33,7 @@ namespace Scott.Barley.v2
         {
             base.Awake();
 
-            pooledParticalsActivation = FindObjectOfType<PooledParticalsActivation>();
+            pooledParticalsActivation = PooledParticalsActivation_Singleton.Instance;
             rocketRigidbody = this.GetComponent<Rigidbody>();
             rocketTransform = this.transform; //cached variables for effiency  ::Ask Mark About This::
             LaunchInitialSetUp();
@@ -56,7 +56,7 @@ namespace Scott.Barley.v2
             }
             if (pooledParticalsActivation != null)
             {
-                pooledParticalsActivation = FindObjectOfType<PooledParticalsActivation>();
+                pooledParticalsActivation = PooledParticalsActivation_Singleton.Instance;
                 Debug.LogWarning("::Projectile_VerticalLaunch:: Rocket pooledParticalsActivation Error!");
             }
             LaunchInitialSetUp();
@@ -92,7 +92,7 @@ namespace Scott.Barley.v2
 
             if (pooledParticalsActivation != null)
             {
-                pooledParticalsActivation.DequeueParticalEffect_ByTag(CollisionParticalEffect_Tag, this.transform.position, transform.rotation);
+                GameObject go = pooledParticalsActivation.fn_DequeueParticalEffect_ByTag(CollisionParticalEffect_Tag, this.transform.position, transform.rotation);
             }
 
         }

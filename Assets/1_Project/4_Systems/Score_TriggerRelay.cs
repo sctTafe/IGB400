@@ -4,5 +4,5 @@ using UnityEngine;
 /// </summary>
 public class Score_TriggerRelay : MonoBehaviour
 {
-    public void fn_AddScore(int value) => Score_Singelton.Instance.fn_AddToScore(value);
+    public void fn_AddScore(int value) => UI_Score_Singelton.Instance.fn_AddToScore(value);
 }
