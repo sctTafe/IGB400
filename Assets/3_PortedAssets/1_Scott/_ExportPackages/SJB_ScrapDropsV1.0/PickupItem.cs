@@ -7,6 +7,9 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class PickupItem : MonoBehaviour
 {
+    [Header("Debugging")]
+    [SerializeField] private bool _isDebugging = false;
+
     [Header("Scrap Values")]
     [SerializeField] int _ScarpValueMin  = 8;
     [SerializeField] int _ScarpValueMax = 12;
@@ -77,7 +80,7 @@ public class PickupItem : MonoBehaviour
     // Dummy function for now
     private void OnCollected(GameObject player)
     {
-        Debug.Log($"{gameObject.name} collected by {player.name}!");
+        if(_isDebugging) Debug.Log($"{gameObject.name} collected by {player.name}!");
         Scrap_TriggerRelay.fn_AddScore(Random.Range(_ScarpValueMin, _ScarpValueMax));
     }
 

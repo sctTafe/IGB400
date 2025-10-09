@@ -10,6 +10,7 @@ namespace Scott.Barley.v2
     {
         [SerializeField] bool debugON = false;
         [Header("Set Up")]
+        [SerializeField] ScrapPickupSpawner _ScrapSpawner;
         private DestructibleBuilding_ObjectPooling destructibleBuilding_ObjectPooling;
         [SerializeField] string pooledBuildingType_Tag;
         [SerializeField] float buildingPartsDequed_LifeTime;
@@ -40,6 +41,7 @@ namespace Scott.Barley.v2
             if (hasCapturedOriginPoints == false) CaptureChildRelativeTransformPositions();
             autoDisable_CountdownTime = Time.time + buildingPartsDequed_LifeTime;
             hasReturnedToPool = false;
+            
 
         }
 
@@ -66,8 +68,15 @@ namespace Scott.Barley.v2
             {
                 if (debugON) Debug.Log("Projectile" + this.gameObject.GetInstanceID() + " PojectileTimeOut_OFF");
             }
-
         }
+
+
+        public void fn_SpawnScrap()
+        {
+            _ScrapSpawner.SpawnPrefabs();
+        }
+
+
 
         private void CaptureChildRelativeTransformPositions()
         {

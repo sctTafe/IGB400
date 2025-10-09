@@ -14,16 +14,18 @@ namespace Scott.Barley.v2
     [RequireComponent(typeof(Rigidbody), typeof(Collider))]
     public class HelicopterFlying : MonoBehaviour
     {
+        [Header("Debugging")]
+        [SerializeField] private bool _isDebugging = false;
+
+        [Header("Setup")]
         [SerializeField] private PlayerInput _playerInput;
         [SerializeField] PhoneTiltInput _phoneTiltInput;
 
         [SerializeField] Transform meshToTilt;
 
         [Header("Movement")]
-
         [SerializeField] private float forwardSpeed = 6;
         [SerializeField] private float sidewardSpeed = 3;
-
         [SerializeField] private float rotationSpeed = 10;
         [SerializeField] private float maxRotationSpeed = 6;
         [SerializeField] private float stoppingDrag = 2;
@@ -71,7 +73,8 @@ namespace Scott.Barley.v2
 
         private void MovementInput()
         {
-            // Debug / TODO - Jocystick sentitivity, anything under ~5% movment dont recognise, lerp the rest between 5%-100%
+            // TODO - Jocystick sentitivity, anything under ~5% movment dont recognise, lerp the rest between 5%-100%
+
             yaw = 0f; // Turning // yaw => rotation
             pitch = 0f; // Accelerating Foward/Back
             strafe = 0f; // Accelerating SideToSide
@@ -95,7 +98,7 @@ namespace Scott.Barley.v2
             
             rigidbody.AddRelativeForce(sideWaysForce, 0, fowardForce, ForceMode.VelocityChange);
 
-            Debug.Log($"Yaw: {yaw}, Angular Velocity: {rigidbody.angularVelocity.y}");
+            if(_isDebugging) Debug.Log($"Yaw: {yaw}, Angular Velocity: {rigidbody.angularVelocity.y}");
 
             VerticalBoundaryForces();
         }

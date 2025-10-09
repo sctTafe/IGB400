@@ -45,6 +45,7 @@ namespace Scott.Barley.v2
         private bool collapseCompleated;
         private int collapseIterationCount;
         private bool collapseIsSetup;
+        private bool _isScrapSpawned;
         private GameObject dequedBuildingParts;
         private float _wait_timeToWaitTill_PostCollapseCleanUp;
         [SerializeField] float postCollapseCleanUpWaitTime;
@@ -93,6 +94,8 @@ namespace Scott.Barley.v2
             damageEffectsIsSetUp = false;
             collapseIsSetup = false;
 
+            _isScrapSpawned = false;
+
         }
         private void Update()
         {
@@ -116,20 +119,31 @@ namespace Scott.Barley.v2
 
 
 
-
-
-
-
-
         private void BuildingCollapse_ON_collapseTriggered()
         {
             if (collapseTriggered)
             {
+                DestructibleBuilding_BuildingPartControl destructibleBuildingBuildingPartControl = null;
+
+                if(dequedBuildingParts != null)
+                    if (dequedBuildingParts.TryGetComponent<DestructibleBuilding_BuildingPartControl>( out DestructibleBuilding_BuildingPartControl db))
+                        destructibleBuildingBuildingPartControl = db;
+
                 if (collapseIsSetup == false)
                 {
                     CollapseSetUp();
                     collapseIsSetup = true;
                 }
+
+                if(destructibleBuildingBuildingPartControl != null)
+                {
+                    if(_isScrapSpawned == false)
+                    {
+                        destructibleBuildingBuildingPartControl.fn_SpawnScrap();
+                        _isScrapSpawned = true;
+                    }                   
+                }
+
 
                 // turn off the buildings collider, once the collapse is triggered
                 this.gameObject.GetComponent<Collider>().enabled = false;
@@ -157,9 +171,10 @@ namespace Scott.Barley.v2
                 {
                     if(_wait_timeToWaitTill_PostCollapseCleanUp <= Time.time)
                     {
-                        if(dequedBuildingParts.GetComponent<DestructibleBuilding_BuildingPartControl>() != null)
+                        
+                        if (destructibleBuildingBuildingPartControl != null)
                         {
-                            dequedBuildingParts.GetComponent<DestructibleBuilding_BuildingPartControl>().fnc_RetrunToPool();
+                            destructibleBuildingBuildingPartControl.fnc_RetrunToPool();
                         }
 
                         Destroy(this.gameObject);

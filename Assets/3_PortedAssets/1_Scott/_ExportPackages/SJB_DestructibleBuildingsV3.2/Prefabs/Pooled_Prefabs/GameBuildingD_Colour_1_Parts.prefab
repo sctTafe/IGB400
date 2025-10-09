@@ -3093,6 +3093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugON: 0
+  _ScrapSpawner: {fileID: 6718806454275504974}
   pooledBuildingType_Tag: GameBuildingD
   buildingPartsDequed_LifeTime: 30
   childRelativeTransformsPositions: []
@@ -4595,3 +4596,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 45722320545293520, guid: d791bcf1007f9da418b46ae4179144e0, type: 3}
   m_PrefabInstance: {fileID: 6557374982721091523}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6718806454275504974 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 449664052368428173, guid: d791bcf1007f9da418b46ae4179144e0, type: 3}
+  m_PrefabInstance: {fileID: 6557374982721091523}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95adfb122d13b6c4984b5891378bfd91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -93,7 +93,7 @@ MonoBehaviour:
   postCollapseCleanUpWaitTime: 10
   bulidingCollapseLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   explosiveForce: 30000
   upwardsForce: -1
   fracturedBuildingParts_List: []

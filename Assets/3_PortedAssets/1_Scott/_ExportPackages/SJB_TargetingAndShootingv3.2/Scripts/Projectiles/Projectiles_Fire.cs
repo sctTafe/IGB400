@@ -448,7 +448,7 @@ namespace Scott.Barley.v2
                     Projectile_VerticalLaunch.Set_TargetTransform(targetTransform);
                     Projectile_VerticalLaunch.Set_TargetTrackingIsEnabled(true);
                     Projectile_VerticalLaunch.Set_InitialMovementSpeed(initialForwardVelocity_LaunchPoints);
-                    Projectile_VerticalLaunch.fn_SetDamageInflicted()
+                    Projectile_VerticalLaunch.fn_SetDamageInflicted(wsd._damageOnInpact);
                 } else
                 if (launcherType == 2) // Horizontal Launcher
                 {

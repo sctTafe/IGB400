@@ -15,7 +15,7 @@ public class ScrapPickupSpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        SpawnPrefabs();
+        
     }
 
     public void SpawnPrefabs()
