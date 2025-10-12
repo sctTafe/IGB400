@@ -26,7 +26,6 @@ namespace Scott.Barley.v2 {
                 targetableEnemies.Add(col.gameObject);
                 OnListChange?.Invoke();
                 //ListUpdated_DebugOut();
-
             }
             
         }
@@ -43,15 +42,27 @@ namespace Scott.Barley.v2 {
 
         // checks list on physics call 'fixed update' for anything thats been destoryed / is now 'null', if any list member is null, it called the list update event
         private void FixedUpdate() {
-            foreach (var item in targetableEnemies) {
-                if ((item == null) || (item.activeSelf == false)) {
-                    targetableEnemies.Remove(item);
+
+            // Remove all destroyed or inactive entries safely
+            for (int i = targetableEnemies.Count - 1; i >= 0; i--)
+            {
+                GameObject item = targetableEnemies[i];
+                if (item == null || !item.activeSelf)
+                {
+                    targetableEnemies.RemoveAt(i);
                     OnListChange?.Invoke();
-                    //ListUpdated_DebugOut();
                 }
             }
 
-            
+            //foreach (var item in targetableEnemies) {
+            //    if ((item == null) || (item.activeSelf == false)) {
+            //        targetableEnemies.Remove(item);
+            //        OnListChange?.Invoke();
+            //        //ListUpdated_DebugOut();
+            //    }
+            //}
+
+
         }
 
         private void ListUpdated_DebugOut() {

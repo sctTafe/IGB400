@@ -12,14 +12,25 @@ namespace Scott.Barley.v2 {
         // if they are public they can just be changed without writing a function
         public string tag_ProjectilePoolRef;
         public bool hasTargetTracking; // for letting 'Projectile_Fire' know if to pass 'Target' Transform
+        public int launcherType;   //which fire points / weapon launch points to use      
+        public string weaponName;
+
+        [Header("Ammo")]
         public int maxAmmo;
         public int remainingAmmo;
-        public int launcherType;   //which fire points / weapon launch points to use
-        public float fireCooldown = 0.5f;
-        public string weaponName;
-        public float _cooldownTimer;
+
         [Header("Modifiable Value")]
-        public int _damageOnInpact;
+        [SerializeField] int _baseDamageOnHit;
+        [SerializeField] float _baseFireWeaponCooldown = 2f;
+
+
+        public int CurrentDamageOnHit => _currentDamageOnHit;
+
+        //Internal
+        float _currentfireCooldown;
+        int _currentDamageOnHit;
+        float _cooldownTimer_Active;
+
 
 
         //public GameObject projectile_Prefab;
@@ -29,9 +40,28 @@ namespace Scott.Barley.v2 {
         [SerializeField] Projectiles_Fire projectiles_Fire;
 
 
+        void Start()
+        {
+            _currentDamageOnHit = _baseDamageOnHit;
+            _currentfireCooldown =  _baseFireWeaponCooldown;
+        }
+
+
+
+        public void fn_DmgUp(float pctChange)
+        {
+            _currentDamageOnHit = Mathf.RoundToInt(_currentDamageOnHit * pctChange);
+        }
+
+        public void fn_ShootSpeedUp(float pctChnage)
+        {
+            _currentfireCooldown *= pctChnage;
+        }
+
+
         public void fn_SetFireCoolDown()
         {
-            _cooldownTimer = Time.time + fireCooldown;
+            _cooldownTimer_Active = Time.time + _currentfireCooldown;
         }
 
         public void fnc_DecressAmmoAmount(int ammount) {

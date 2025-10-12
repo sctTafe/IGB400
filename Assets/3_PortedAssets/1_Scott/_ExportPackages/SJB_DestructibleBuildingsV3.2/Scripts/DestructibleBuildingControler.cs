@@ -9,6 +9,10 @@ namespace Scott.Barley.v2
 
     public class DestructibleBuildingControler : MonoBehaviour
     {
+        [Header("Debugging")]
+        [SerializeField] bool _isDebugging = false;
+        //if(_isDebugging) 
+
         [Header("Set Up")]
 
         private DestructibleBuilding_ObjectPooling destructibleBuilding_ObjectPooling;
@@ -371,10 +375,10 @@ namespace Scott.Barley.v2
                 }
 
                 doWhileLoopTimeOutCount++;
-                if (doWhileLoopTimeOutCount >= 499) { Debug.Log("SetUPDammageEffectPoints_ON_setUPDammageEffectPointsCompleate_False: Loop TimeOut"); }
+                if (doWhileLoopTimeOutCount >= 499) { if (_isDebugging) Debug.Log("SetUPDammageEffectPoints_ON_setUPDammageEffectPointsCompleate_False: Loop TimeOut"); }
             } while ((damageEffectPoint_List.Count < (numberOfPoints)) && doWhileLoopTimeOutCount < 500);
 
-            Debug.Log("SetUPDammageEffectPoints_ON_setUPDammageEffectPointsCompleate_False : Finished : " + damageEffectPoint_List.Count + " Points added to List.");
+            if (_isDebugging) Debug.Log("SetUPDammageEffectPoints_ON_setUPDammageEffectPointsCompleate_False : Finished : " + damageEffectPoint_List.Count + " Points added to List.");
         }
        
         private Vector3 randomPointOnMesh()

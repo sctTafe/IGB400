@@ -4,6 +4,10 @@ using UnityEngine.UI;
 
 public class UI_UpgradeManager_Singleton : Singleton<UI_UpgradeManager_Singleton>
 {
+    [Header("Debugging")]
+    [SerializeField] bool _isDebugging = false;
+    //if(_isDebugging) 
+
     [Header("UI References")]
     public GameObject upgradeCanvas;                    // The entire canvas or panel to enable/disable
     public GameObject[] upgradeOptions;                 // All upgrade panels (child panels with buttons)
@@ -77,7 +81,7 @@ public class UI_UpgradeManager_Singleton : Singleton<UI_UpgradeManager_Singleton
 
     void OnUpgradeSelected(GameObject selectedPanel)
     {
-        Debug.Log("Upgrade Selected: " + selectedPanel.name);
+        if(_isDebugging) Debug.Log("Upgrade Selected: " + selectedPanel.name);
 
         // Call upgrade logic here
         ApplyUpgrade(selectedPanel);
@@ -88,9 +92,11 @@ public class UI_UpgradeManager_Singleton : Singleton<UI_UpgradeManager_Singleton
 
     void ApplyUpgrade(GameObject panel)
     {
-        // TODO: Fill this in based on which panel was clicked
-        // Could use a component or script on the panel to identify what upgrade it represents
-        Debug.Log("Applying upgrade logic for: " + panel.name);
+        if(panel.TryGetComponent<UI_UpgradeOption>(out var _UASO))
+        {
+            _UASO.UpgradeActionSO.fn_ApplyUpgrade(this.gameObject);
+        }
+        if (_isDebugging) Debug.Log("Applying upgrade logic for: " + panel.name);
         Time.timeScale = 1f; // Resumes the game
     }
 

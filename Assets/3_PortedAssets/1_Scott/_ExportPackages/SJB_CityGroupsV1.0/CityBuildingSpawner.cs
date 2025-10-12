@@ -1,7 +1,7 @@
 using UnityEngine;
-using UnityEditor;   // Required for context menu button
+using UnityEditor;
 
-[ExecuteInEditMode] // Allows running in the Editor without entering Play mode
+[ExecuteInEditMode]
 public class CityBuildingSpawner : MonoBehaviour
 {
     [Header("Building Prefabs")]
@@ -22,10 +22,11 @@ public class CityBuildingSpawner : MonoBehaviour
     [Tooltip("Parent object to hold all spawned buildings.")]
     public Transform buildingParent;
 
-    [Tooltip("Height at which to raycast for collisions (e.g., above terrain).")]
-    public float raycastHeight = 100f;
-    [Tooltip("How far down the ray should check for collisions.")]
-    public float raycastDistance = 200f;
+    [Tooltip("The vertical range for spawn height (Y value).")]
+    public Vector2 heightRange = new Vector2(-20f, 0f);
+
+    [Tooltip("Padding inside each cell to prevent overlap with edges.")]
+    public float cellPadding = 0.5f;
 
     [Header("Spawn Area Offset")]
     public Vector3 originOffset = Vector3.zero;
@@ -49,24 +50,32 @@ public class CityBuildingSpawner : MonoBehaviour
         {
             for (int z = 0; z < gridHeight; z++)
             {
-                // Calculate world position
+                // Calculate center of this grid cell
                 Vector3 worldPos = transform.position + originOffset + new Vector3(x * cellSize, 0, z * cellSize);
 
-                // Check if space is empty using Physics.CheckBox or raycast
-                Vector3 checkCenter = worldPos + Vector3.up * raycastHeight;
-                if (!Physics.Raycast(checkCenter, Vector3.down, out RaycastHit hit, raycastDistance, obstacleMask))
-                {
-                    // Nothing found in space — spawn building
-                    GameObject prefab = buildingPrefabs[Random.Range(0, buildingPrefabs.Length)];
-                    if (prefab == null) continue;
+                // Volume check (cube of the same size as cell)
+                Vector3 halfExtents = new Vector3((cellSize - cellPadding) * 0.5f, 100f, (cellSize - cellPadding) * 0.5f);
+                Collider[] overlaps = Physics.OverlapBox(worldPos, halfExtents, Quaternion.identity, obstacleMask);
 
-                    float randomYRot = Random.Range(0f, 360f);
-                    GameObject newBuilding = (GameObject)PrefabUtility.InstantiatePrefab(prefab, buildingParent);
-                    newBuilding.transform.position = worldPos;
-                    newBuilding.transform.rotation = Quaternion.Euler(0f, randomYRot, 0f);
+                // Skip if something occupies the cell
+                if (overlaps.Length > 0)
+                    continue;
 
-                    spawnCount++;
-                }
+                // Random prefab
+                GameObject prefab = buildingPrefabs[Random.Range(0, buildingPrefabs.Length)];
+                if (prefab == null)
+                    continue;
+
+                // Random rotation & height
+                float randomYRot = Random.Range(0f, 360f);
+                float randomYHeight = Random.Range(heightRange.x, heightRange.y);
+
+                // Spawn building
+                GameObject newBuilding = (GameObject)PrefabUtility.InstantiatePrefab(prefab, buildingParent);
+                newBuilding.transform.position = new Vector3(worldPos.x, randomYHeight, worldPos.z);
+                newBuilding.transform.rotation = Quaternion.Euler(0f, randomYRot, 0f);
+
+                spawnCount++;
             }
         }
 
@@ -82,7 +91,6 @@ public class CityBuildingSpawner : MonoBehaviour
             return;
         }
 
-        // Destroy children in editor safely
         for (int i = buildingParent.childCount - 1; i >= 0; i--)
         {
             DestroyImmediate(buildingParent.GetChild(i).gameObject);
@@ -93,11 +101,10 @@ public class CityBuildingSpawner : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        // Visualize the grid in editor
         Gizmos.color = Color.cyan;
-        for (int x = 0; x <= gridWidth; x++)
+        for (int x = 0; x < gridWidth; x++)
         {
-            for (int z = 0; z <= gridHeight; z++)
+            for (int z = 0; z < gridHeight; z++)
             {
                 Vector3 cellPos = transform.position + originOffset + new Vector3(x * cellSize, 0, z * cellSize);
                 Gizmos.DrawWireCube(cellPos, new Vector3(cellSize, 0.1f, cellSize));

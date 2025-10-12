@@ -339,7 +339,7 @@ namespace Scott.Barley.v2
                 return;
 
             //If on cooldown ignore
-            if (weaponSlotData._cooldownTimer > Time.time)
+            if (weaponSlotData._cooldownTimer_Active > Time.time)
                 return;
             
 
@@ -448,13 +448,15 @@ namespace Scott.Barley.v2
                     Projectile_VerticalLaunch.Set_TargetTransform(targetTransform);
                     Projectile_VerticalLaunch.Set_TargetTrackingIsEnabled(true);
                     Projectile_VerticalLaunch.Set_InitialMovementSpeed(initialForwardVelocity_LaunchPoints);
-                    Projectile_VerticalLaunch.fn_SetDamageInflicted(wsd._damageOnInpact);
+                    Projectile_VerticalLaunch.fn_SetDamageInflicted(wsd._currentDamageOnHit);
                 } else
                 if (launcherType == 2) // Horizontal Launcher
                 {
-                    projectileGO.GetComponent<Projectile_WingLaunch>().Set_TargetTransform(targetTransform);
-                    projectileGO.GetComponent<Projectile_WingLaunch>().Set_TargetTrackingIsEnabled(true);
-                    projectileGO.GetComponent<Projectile_WingLaunch>().Set_InitialMovementSpeed(initialForwardVelocity_LaunchPoints);
+                    var projectile_WingLaunch = projectileGO.GetComponent<Projectile_WingLaunch>();
+                    projectile_WingLaunch.Set_TargetTransform(targetTransform);
+                    projectile_WingLaunch.Set_TargetTrackingIsEnabled(true);
+                    projectile_WingLaunch.Set_InitialMovementSpeed(initialForwardVelocity_LaunchPoints);
+                    projectile_WingLaunch.fn_SetDamageInflicted(wsd._currentDamageOnHit);
                 }
                 else
                 if (launcherType == 1)
