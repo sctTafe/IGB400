@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace Scott.Barley.v2
@@ -339,7 +336,7 @@ namespace Scott.Barley.v2
                 return;
 
             //If on cooldown ignore
-            if (weaponSlotData._cooldownTimer_Active > Time.time)
+            if (weaponSlotData.CooldownTimer_Acitve > Time.time)
                 return;
             
 
@@ -448,7 +445,7 @@ namespace Scott.Barley.v2
                     Projectile_VerticalLaunch.Set_TargetTransform(targetTransform);
                     Projectile_VerticalLaunch.Set_TargetTrackingIsEnabled(true);
                     Projectile_VerticalLaunch.Set_InitialMovementSpeed(initialForwardVelocity_LaunchPoints);
-                    Projectile_VerticalLaunch.fn_SetDamageInflicted(wsd._currentDamageOnHit);
+                    Projectile_VerticalLaunch.fn_SetDamageInflicted(wsd.CurrentDamageOnHit);
                 } else
                 if (launcherType == 2) // Horizontal Launcher
                 {
@@ -456,13 +453,14 @@ namespace Scott.Barley.v2
                     projectile_WingLaunch.Set_TargetTransform(targetTransform);
                     projectile_WingLaunch.Set_TargetTrackingIsEnabled(true);
                     projectile_WingLaunch.Set_InitialMovementSpeed(initialForwardVelocity_LaunchPoints);
-                    projectile_WingLaunch.fn_SetDamageInflicted(wsd._currentDamageOnHit);
+                    projectile_WingLaunch.fn_SetDamageInflicted(wsd.CurrentDamageOnHit);
                 }
                 else
                 if (launcherType == 1)
                 {
                     // need to wite this still......
                     var Projectile_MashineGun = projectileGO.GetComponent<Projectile_MashineGun>();
+                    Projectile_MashineGun.fn_SetDamageInflicted(wsd.CurrentDamageOnHit);
                 } else
                 {
                     Debug.LogWarning("::Warning!:: Projectiles_Fire: Incorrect targetTracking setting of: " + targetTracking);

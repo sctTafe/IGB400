@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Scott.Barley.v2;
 
 namespace Scott.Barley.v2 {
     public class Projectiles_WeaponSlotData : MonoBehaviour {
@@ -25,12 +22,13 @@ namespace Scott.Barley.v2 {
 
 
         public int CurrentDamageOnHit => _currentDamageOnHit;
+        public float CooldownTimer_Acitve => _cooldownTimer_Active;
 
         //Internal
         float _currentfireCooldown;
         int _currentDamageOnHit;
         float _cooldownTimer_Active;
-
+   
 
 
         //public GameObject projectile_Prefab;

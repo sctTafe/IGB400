@@ -30,6 +30,7 @@ namespace Scott.Barley.v2
         [SerializeField] private float maxRotationSpeed = 6;
         [SerializeField] private float stoppingDrag = 2;
         [SerializeField] private float stoppingAngularDrag = 5;
+        [SerializeField] float _maxSpeed = 20f; // Adjust this value to your desired max speed
 
         [Header("Height")]
         [SerializeField] private float verticalSpeed = 3;
@@ -101,10 +102,24 @@ namespace Scott.Barley.v2
             if(_isDebugging) Debug.Log($"Yaw: {yaw}, Angular Velocity: {rigidbody.angularVelocity.y}");
 
             VerticalBoundaryForces();
+
+            LimitMaxSpeed();
         }
 
 
 
+
+        private void LimitMaxSpeed()
+        {
+            Vector3 horizontalVelocity = new Vector3(rigidbody.linearVelocity.x, 0, rigidbody.linearVelocity.z);
+            float currentSpeed = horizontalVelocity.magnitude;
+
+            if (currentSpeed > _maxSpeed)
+            {
+                Vector3 limitedVelocity = horizontalVelocity.normalized * _maxSpeed;
+                rigidbody.linearVelocity = new Vector3(limitedVelocity.x, rigidbody.linearVelocity.y, limitedVelocity.z);
+            }
+        }
 
 
         /// <summary>

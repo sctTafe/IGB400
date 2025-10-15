@@ -1,11 +1,13 @@
-using System;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Upgrades/Upgrade Data Refill Ammo")]
-public class RefillAmmo_UpgradeDataSO : UpgradeActionSO
+namespace Scott.Barley.v2
 {
-    public override void fn_ApplyUpgrade(GameObject target)
+    [CreateAssetMenu(menuName = "Upgrades/Upgrade Data Refill Ammo")]
+    public class RefillAmmo_UpgradeDataSO : UpgradeActionSO
     {
-        WeaponsUpgradeRelay_Singelton.Instance.fn_ReloadAll();
+        public override void fn_ApplyUpgrade(GameObject target)
+        {
+            WeaponsUpgradeRelay_Singelton.Instance.fn_ReloadAll();
+        }
     }
 }

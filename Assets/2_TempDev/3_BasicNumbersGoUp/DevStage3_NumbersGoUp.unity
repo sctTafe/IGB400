@@ -35963,6 +35963,7 @@ MonoBehaviour:
   maxRotationSpeed: 60
   stoppingDrag: 3
   stoppingAngularDrag: 3
+  _maxSpeed: 10
   verticalSpeed: 10
   minHeight: 0
   maxHeight: 10
@@ -62097,8 +62098,20 @@ PrefabInstance:
       value: Sct_ShootingManager_v2.1
       objectReference: {fileID: 0}
     - target: {fileID: 840016893978155502, guid: fc62249e6c0cbc942b0128285a19384c, type: 3}
+      propertyPath: remainingAmmo
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 840016893978155502, guid: fc62249e6c0cbc942b0128285a19384c, type: 3}
+      propertyPath: _baseDamageOnHit
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 840016893978155502, guid: fc62249e6c0cbc942b0128285a19384c, type: 3}
       propertyPath: isAvalibleToPlayer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 840016893978155502, guid: fc62249e6c0cbc942b0128285a19384c, type: 3}
+      propertyPath: _baseFireWeaponCooldown
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1133243954789026403, guid: fc62249e6c0cbc942b0128285a19384c, type: 3}
       propertyPath: m_Name
@@ -62113,16 +62126,40 @@ PrefabInstance:
       value: LoadWeapon_C_MisVert
       objectReference: {fileID: 0}
     - target: {fileID: 2085309382358036245, guid: fc62249e6c0cbc942b0128285a19384c, type: 3}
+      propertyPath: _baseDamageOnHit
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085309382358036245, guid: fc62249e6c0cbc942b0128285a19384c, type: 3}
       propertyPath: isAvalibleToPlayer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085309382358036245, guid: fc62249e6c0cbc942b0128285a19384c, type: 3}
+      propertyPath: _baseFireWeaponCooldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2382936903115371873, guid: fc62249e6c0cbc942b0128285a19384c, type: 3}
+      propertyPath: maxAmmo
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2382936903115371873, guid: fc62249e6c0cbc942b0128285a19384c, type: 3}
       propertyPath: fireCooldown
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2382936903115371873, guid: fc62249e6c0cbc942b0128285a19384c, type: 3}
+      propertyPath: remainingAmmo
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2382936903115371873, guid: fc62249e6c0cbc942b0128285a19384c, type: 3}
+      propertyPath: _baseDamageOnHit
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2382936903115371873, guid: fc62249e6c0cbc942b0128285a19384c, type: 3}
       propertyPath: isAvalibleToPlayer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2382936903115371873, guid: fc62249e6c0cbc942b0128285a19384c, type: 3}
+      propertyPath: _baseFireWeaponCooldown
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2436500423374186735, guid: fc62249e6c0cbc942b0128285a19384c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -84923,12 +84960,13 @@ MonoBehaviour:
   _playerInput: {fileID: 7588331816423494221}
   _phoneTiltInput: {fileID: 7588331816423494223}
   meshToTilt: {fileID: 1223878567}
-  forwardSpeed: 6
-  sidewardSpeed: 3
-  rotationSpeed: 5
+  forwardSpeed: 4
+  sidewardSpeed: 2
+  rotationSpeed: 4
   maxRotationSpeed: 3
   stoppingDrag: 2
   stoppingAngularDrag: 5
+  _maxSpeed: 40
   verticalSpeed: 3
   minHeight: 0
   maxHeight: 10
@@ -153395,7 +153433,7 @@ MonoBehaviour:
   _playerInput: {fileID: 7588331816423494221}
   steeringSensitivity: 2
   maxSteerAngle: 35
-  steeringSmoothness: 5
+  steeringSmoothness: 10
   baseDeadZone: 0.1
   deadZoneScaling: 0.05
   steeringCurve:
@@ -153404,20 +153442,29 @@ MonoBehaviour:
     - serializedVersion: 3
       time: -1
       value: -1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 0.015288445
+      outSlope: 0.015288445
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.43513963
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -0.013332894
+      outSlope: -0.013332894
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 0.023211654
+      outSlope: 0.023211654
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.5756395
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

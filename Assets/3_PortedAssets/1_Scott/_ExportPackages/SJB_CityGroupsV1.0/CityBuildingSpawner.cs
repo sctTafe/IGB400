@@ -1,7 +1,5 @@
 using UnityEngine;
-using UnityEditor;
 
-[ExecuteInEditMode]
 public class CityBuildingSpawner : MonoBehaviour
 {
     [Header("Building Prefabs")]
@@ -71,7 +69,7 @@ public class CityBuildingSpawner : MonoBehaviour
                 float randomYHeight = Random.Range(heightRange.x, heightRange.y);
 
                 // Spawn building
-                GameObject newBuilding = (GameObject)PrefabUtility.InstantiatePrefab(prefab, buildingParent);
+                GameObject newBuilding = Instantiate(prefab, buildingParent);   // Updated
                 newBuilding.transform.position = new Vector3(worldPos.x, randomYHeight, worldPos.z);
                 newBuilding.transform.rotation = Quaternion.Euler(0f, randomYRot, 0f);
 

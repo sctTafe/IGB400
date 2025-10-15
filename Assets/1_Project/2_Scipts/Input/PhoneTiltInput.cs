@@ -18,7 +18,7 @@ public class PhoneTiltInput : MonoBehaviour
     [Tooltip("Maximum steering angle in degrees.")]
     public float maxSteerAngle = 30f;
 
-    [Tooltip("How quickly steering adjusts to new input.")]
+    [Tooltip("Responsiveness - How quickly steering adjusts to new input.")]
     public float steeringSmoothness = 5f;
 
     [Tooltip("Base dead zone to ignore small tilt inputs.")]
