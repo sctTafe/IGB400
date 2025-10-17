@@ -453,7 +453,7 @@ TextureImporter:
         height: 88
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 34, y: 37, z: 39, w: 36}
       customData: 
       outline: []
       physicsShape: []
@@ -497,7 +497,7 @@ TextureImporter:
         height: 56
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 24, y: 21, z: 24, w: 22}
       customData: 
       outline: []
       physicsShape: []
@@ -1015,6 +1015,94 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: fillbar_right
+      rect:
+        serializedVersion: 2
+        x: 2027
+        y: 2141
+        width: 975
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 21, z: 24, w: 22}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 152809a522788ee4ebf6f24bf039d3fa
+      internalID: -656927066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fillbar_left
+      rect:
+        serializedVersion: 2
+        x: 2003
+        y: 2141
+        width: 975
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 24, y: 21, z: 0, w: 22}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94b1edf6be46af842bf9530bfd513184
+      internalID: -1613097797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillBarRim_L
+      rect:
+        serializedVersion: 2
+        x: 2023
+        y: 2299
+        width: 992
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 37, z: 39, w: 36}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1f61b0a12b07514994c5603296d7c8d
+      internalID: 676822245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillbarRin_R
+      rect:
+        serializedVersion: 2
+        x: 1989
+        y: 2299
+        width: 987
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 34, y: 37, z: 0, w: 36}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8639ffe8daad6254a8aabfe5fc7dc3fa
+      internalID: 2018206688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -1029,6 +1117,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
+      FillBarRim_L: 676822245
+      FillbarRin_R: 2018206688
       atlas_white_v1_0: 1404441529
       atlas_white_v1_1: 541954667
       atlas_white_v1_10: -576090796
@@ -1072,9 +1162,10 @@ TextureImporter:
       atlas_white_v1_45: 2101215496
       atlas_white_v1_5: -524129635
       atlas_white_v1_6: 157910929
-      atlas_white_v1_7: -475469581
       atlas_white_v1_8: -1530437738
       atlas_white_v1_9: 399441576
+      fillbar_left: -1613097797
+      fillbar_right: -475469581
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

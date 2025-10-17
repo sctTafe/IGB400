@@ -16,6 +16,9 @@ namespace Scott.Barley.v2
         [SerializeField] TMP_Text _scrap_txt;
         [SerializeField] TMP_Text _scrapUpgradeCost_txt;
 
+        [SerializeField] UI_SliderOutputControl _Scrap_SliderOutputControl_L;
+        [SerializeField] UI_SliderOutputControl _Scrap_SliderOutputControl_R;
+
         [Header("Upgrade Cost")]
         [SerializeField] float _baseCost = 100f;
         [SerializeField] float _growthRate = 1.1f;
@@ -43,6 +46,12 @@ namespace Scott.Barley.v2
             _score_txt.text = "0";
             _scrap_txt.text = "0";
             _scrapUpgradeCost_txt.text = _currentUpgradeCost.ToString();
+
+
+            float percentage = (_scrap / (float)_currentUpgradeCost) * 100f;
+            percentage = Mathf.Min(percentage, 100f); // Cap at 100%
+            _Scrap_SliderOutputControl_L?.fn_SetFillPct_NoLerp(percentage);
+            _Scrap_SliderOutputControl_R?.fn_SetFillPct_NoLerp(percentage);
         }
         private void Update()
         {
@@ -61,6 +70,12 @@ namespace Scott.Barley.v2
         {
             _scrap += valueToAdd;
             _scrap_txt.text = _scrap.ToString();
+
+            float percentage = (_scrap / (float)_currentUpgradeCost) * 100f;
+            percentage = Mathf.Min(percentage, 100f); // Cap at 100%
+
+            _Scrap_SliderOutputControl_L?.fn_SetFillPct_Lerp(percentage);
+            _Scrap_SliderOutputControl_R?.fn_SetFillPct_Lerp(percentage);
         }
 
         void UpdateUpgradeCost()
@@ -74,11 +89,22 @@ namespace Scott.Barley.v2
         {
             if (_scrap >= _currentUpgradeCost)
             {
-                // Reset
-                _scrap = 0;
                 _UI_UpgradeManager_Singleton.fn_CallUpgrade();
                 UpdateUpgradeCost();
+
+                int leftOver = _scrap - _currentUpgradeCost;
+                _scrap = 0;
+       
                 _scrap_txt.text = _scrap.ToString();
+                _Scrap_SliderOutputControl_L?.fn_SetFillPct_NoLerp(0);
+                _Scrap_SliderOutputControl_R?.fn_SetFillPct_NoLerp(0);
+
+                _scrap = leftOver;
+                float percentage = (_scrap / (float)_currentUpgradeCost) * 100f;
+                percentage = Mathf.Min(percentage, 100f); // Cap at 100%
+
+                _Scrap_SliderOutputControl_L?.fn_SetFillPct_Lerp(percentage);
+                _Scrap_SliderOutputControl_R?.fn_SetFillPct_Lerp(percentage);
             }
         }
     }

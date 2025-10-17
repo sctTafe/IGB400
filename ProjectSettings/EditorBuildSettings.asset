@@ -17,9 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/1_Project/1_Scenes/3_About.unity
     guid: ab53f419be8941f4b964793acc4681c6
-  - enabled: 0
-    path: Assets/2_TempDev/3_BasicNumbersGoUp/DevStage3_NumbersGoUp.unity
-    guid: 4a4ea9df2927e7d4aad49ab17718a1c4
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 37bc78b03bfec3f46a8356dc9824ac1b, type: 2}
     com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000, guid: bd403ee3266338e4687ebe0a0399bd3b, type: 2}
