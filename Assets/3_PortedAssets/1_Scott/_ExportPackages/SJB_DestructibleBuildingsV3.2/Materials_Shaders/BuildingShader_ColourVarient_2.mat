@@ -8,8 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BuildingShader_ColourVarient_2
-  m_Shader: {fileID: -6465566751694194690, guid: fdf8e41d00480fc4ebf604af6b9e1ccc,
-    type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: fdf8e41d00480fc4ebf604af6b9e1ccc, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -96,7 +95,7 @@ Material:
     - _Frame: {r: 0.3019608, g: 0.37681082, b: 0.5294118, a: 0}
     - _Window: {r: 0.3280082, g: 0.5449258, b: 0.764151, a: 0}
     - _WindowBorder: {r: 0.21253115, g: 0.21417958, b: 0.2264151, a: 0}
-    - _WindowGlow: {r: 2.4810677, g: 2.3926845, b: 2.1416764, a: 0}
+    - _WindowGlow: {r: 2.9960787, g: 2.8893492, b: 2.586238, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &5774539492422147114

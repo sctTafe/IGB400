@@ -22,6 +22,9 @@ namespace Scott.Barley.v2
         [Header("Player")]
         public int playerPoints = 0;                        // Example player points (update based on your game)
 
+        [Header("GameSpeed While Upgrading")]
+        [SerializeField] float _gamespeedWhileUpgrading = 0.05f;
+
         private List<GameObject> activeUpgrades = new List<GameObject>();
 
 
@@ -52,7 +55,7 @@ namespace Scott.Barley.v2
         {
 
             ShowUpgradePanel();
-            Time.timeScale = 0f; // Pauses the game
+            Time.timeScale = _gamespeedWhileUpgrading; // Pauses the game
         }
 
         void ShowUpgradePanel()
