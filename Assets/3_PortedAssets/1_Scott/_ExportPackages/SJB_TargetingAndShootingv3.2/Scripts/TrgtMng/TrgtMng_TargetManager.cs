@@ -54,11 +54,12 @@ namespace Scott.Barley.v2 {
         private int target_listPostionID;  // track which list member is the current lockedOn targets
         private int target_GOID; // the game object ID of the target
         private bool isLockedOn; // track LockedOn state
-        private bool targetLockisOverridden = true;
+
+        [Header("Targeting Auto Lock")]
+        //[SerializeField] bool targetLockisOverridden = true;
+        [SerializeField] float _autoLockTriggerDistance = 20f;
         
-
-
-
+ 
 
         private bool noTargetInvokeCalled; // used so the noTargetInvoke Is only called once till reset
 
@@ -87,6 +88,7 @@ namespace Scott.Barley.v2 {
 
         private void Awake()
         {
+
             _autoLockInputAction = _playerInput.actions["AutoLock"];    // 'C'
             _previouseInputAction = _playerInput.actions["Previous"];   // '1'
             _nextInputAction = _playerInput.actions["Next"];            // '2'
@@ -97,7 +99,7 @@ namespace Scott.Barley.v2 {
         {
             frontgun_targetLockIndicator_Transfrom = frontgun_targetLockIndicator.transform;
             frontGun_TargetTransform = nonTargetLockTargetTransform;
-            targetLockisOverridden = true;
+            //targetLockisOverridden = true;
         }
 
         private void OnEnable() {
@@ -137,28 +139,12 @@ namespace Scott.Barley.v2 {
 
         public void Update() {
 
-            //      ---- Key Inputs -----
-            // Targeting Override
-            /*
-            if (Input.GetButtonDown("WepAutoLock"))
-            {
-                targetLockisOverridden =! targetLockisOverridden;
-            }
 
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                TargetLock_CycleThroughTargets_Down();
-            }
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                TargetLock_CycleThroughTargets_Up();
-            }
-            */
-
+            // --- Targeting Control input - Chosing Target Manually ---
 
             if (_autoLockInputAction.triggered)
             {
-                targetLockisOverridden = !targetLockisOverridden;
+                //targetLockisOverridden = !targetLockisOverridden;
             }
 
             if (_autoLockInputAction.triggered)
@@ -171,40 +157,123 @@ namespace Scott.Barley.v2 {
             }
 
 
-            //      ---- Move Primary targetLockIndicator ----
-            if (targetLockisOverridden)
-            {
-                primary_targetLockIndicator.SetActive(true);
+
+            ////      ---- Move Primary targetLockIndicator ----
+            //if (targetLockisOverridden)
+            //{
+            //    primary_targetLockIndicator.SetActive(true);
+            //    primary_targetLockIndicator.transform.position = nonTargetLockTargetTransform.position;
+            //}
+            //else
+            //{
+            //    if (isLockedOn == true)
+            //    {
+            //        primary_targetLockIndicator.SetActive(true);
+
+            //        if(target != null) 
+            //            primary_targetLockIndicator.transform.position = target.transform.position;
+            //    }
+            //}
+
+            ////   ---- Move FrontGun targetLock 'Indicator' ----
+            //if (targetLockisOverridden)
+            //{
+            //    frontgun_targetLockIndicator_Transfrom.position = nonTargetLockTargetTransform.position;
+            //} 
+            //else
+            //{
+            //    frontgun_targetLockIndicator_Transfrom.position = frontGun_TargetTransform.position;
+            //}
+
+            AutoTargetNearest();
+
+            // Set Shooting Retrecult positon; either default position or on the target
+            if (target == null)
                 primary_targetLockIndicator.transform.position = nonTargetLockTargetTransform.position;
-            }
             else
-            {
-                if (isLockedOn == true)
-                {
-                    primary_targetLockIndicator.SetActive(true);
-                    if(target != null) primary_targetLockIndicator.transform.position = target.transform.position;
-                }
-            }
-
-            //   ---- Move FrontGun targetLockIndicator ----
-            if (targetLockisOverridden)
-            {
-                frontgun_targetLockIndicator_Transfrom.position = nonTargetLockTargetTransform.position;
-            } 
-            else
-            {
-                frontgun_targetLockIndicator_Transfrom.position = frontGun_TargetTransform.position;
-            }
-                
+                primary_targetLockIndicator.transform.position = target.transform.position;
         }
-
         private void FixedUpdate()
         {
-            if ((targetLockisOverridden == false) && (isLockedOn == false))
+            //if ((targetLockisOverridden == false) && (isLockedOn == false))
+            //{
+            //    primary_targetLockIndicator.SetActive(false);
+            //}
+        }
+
+        void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(nonTargetLockTargetTransform.position, _autoLockTriggerDistance);
+
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(nonTargetLockTargetTransform.position, _autoLockTriggerDistance * 1.5f);
+        }
+
+        private void AutoTargetNearest()
+        {
+            // If no current target get the closest to '_defaultAutoLock_Point'
+            if (target == null)
             {
-                primary_targetLockIndicator.SetActive(false);
+                target = Get_ClosestTargetToDeafaultTaretingPosition();
+                return;
+            }
+
+            if(target != null)
+            {
+                //Check target is still within 1.5* the auto target distance, else try get new auto target
+                var currentDis = Vector3.Distance(target.transform.position, nonTargetLockTargetTransform.position);
+
+                if (currentDis < _autoLockTriggerDistance * 1.5f)
+                    return;
+
+                //If outside the auto lock position, reaquire colosest target
+                target = Get_ClosestTargetToDeafaultTaretingPosition();
+                return;
             }
         }
+
+
+       
+        GameObject? Get_ClosestTargetToDeafaultTaretingPosition()
+        {
+            if (frontGun_EnemiesTarget_List.Count > 0)
+            {
+                int indexOfClosest = 0;
+                float shortestDist = float.MaxValue;
+                bool isTargetInTDistanceCheck = false;
+
+                var targetingPoint = nonTargetLockTargetTransform.position;
+
+                for (int i = frontGun_EnemiesTarget_List.Count - 1; i >= 0; i--)
+                {
+                    float dis = Vector3.Distance(frontGun_EnemiesTarget_List[i].transform.position, targetingPoint);
+
+                    if (dis < shortestDist)
+                    {
+                        shortestDist = dis;
+                        indexOfClosest = i;
+
+                        if(dis < _autoLockTriggerDistance)
+                            isTargetInTDistanceCheck = true;
+
+                    }
+                }
+
+                // Only Return A Target if they are inside the autotargeting distance
+                if(isTargetInTDistanceCheck)
+                    return frontGun_EnemiesTarget_List[indexOfClosest];
+
+            }
+            return null;
+        }
+
+
+
+
+
+
+
 
 
         private void TargetLock_CycleThroughTargets_Up() {
@@ -221,10 +290,9 @@ namespace Scott.Barley.v2 {
             {
                 target = allEnemiesTarget_List[target_listPostionID];
                 target_GOID = target.GetInstanceID();
-            }
-            
-
+            }         
         }
+
 
         private void TargetLock_CycleThroughTargets_Down() {
             if ((target_listPostionID - 1) >= 0) {
@@ -330,33 +398,27 @@ namespace Scott.Barley.v2 {
         }
 
 
-    public Transform Get_TargetTransform() {
+        /// <summary>
+        ///  Returns the transform of the 'target', or a standin shooting transform 'nonTargetLockTargetTransform'
+        /// </summary>
+        public Transform Get_TargetTransform() {
   
-            // only return a target transform if the is a locked on target
-            if (targetLockisOverridden) {
-                return nonTargetLockTargetTransform;
-            }
-            else
-            if ((target != null) && (isLockedOn == true)) {
+            if (target != null){
                 return target.transform;
             }
-            else return null;
+            return nonTargetLockTargetTransform;
         }
 
+        /// <summary>
+        ///  Returns the transform of the 'target', or a standin shooting transform 'nonTargetLockTargetTransform'
+        /// </summary>
         public Transform Get_FrontGunTargetTransform()
         {
-
-            // only return a target transform if the is a locked on target
-            if (targetLockisOverridden)
+            if (target != null)
             {
-                return nonTargetLockTargetTransform;
+                return target.transform;
             }
-            else
-            if (frontgun_targetLockIndicator_Transfrom != null)
-            {
-                return frontgun_targetLockIndicator_Transfrom;
-            }
-            else return null;
+            return nonTargetLockTargetTransform;
         }
 
 

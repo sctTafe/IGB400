@@ -1,5 +1,53 @@
-using UnityEditor;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+[CustomEditor(typeof(CityBuildingSpawner))]
+public class CityBuildingSpawnerEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        // Target script
+        CityBuildingSpawner spawner = (CityBuildingSpawner)target;
+
+        // Area Header
+        EditorGUILayout.LabelField("City Spawner Controls", EditorStyles.boldLabel);
+
+        // Buttons
+        #region Horizonal Layout
+        // Add horizontal layout for buttons
+        EditorGUILayout.BeginHorizontal();
+
+        // Spawn Buildings Button
+        if (GUILayout.Button("Spawn Buildings", GUILayout.Height(30)))
+        {
+            spawner.SpawnBuildings();
+        }
+
+        // Clear Buildings Button
+        GUI.backgroundColor = Color.red;
+        if (GUILayout.Button("Clear Buildings", GUILayout.Height(30)))
+        {
+            if (EditorUtility.DisplayDialog("Clear Buildings",
+                "Are you sure you want to clear all spawned buildings?",
+                "Yes", "Cancel"))
+            {
+                spawner.ClearBuildings();
+            }
+        }
+        GUI.backgroundColor = Color.white;
+
+        EditorGUILayout.EndHorizontal();
+        #endregion END - Horizonal Layout
+
+        // Add space and separator
+        EditorGUILayout.Space(5);
+
+        // Draw the default unity editor compnent
+        DrawDefaultInspector();
+    }
+}
+#endif
 
 public class CityBuildingSpawner : MonoBehaviour
 {
@@ -109,53 +157,5 @@ public class CityBuildingSpawner : MonoBehaviour
                 Gizmos.DrawWireCube(cellPos, new Vector3(cellSize, 0.1f, cellSize));
             }
         }
-    }
-}
-
-[CustomEditor(typeof(CityBuildingSpawner))]
-public class CityBuildingSpawnerEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        // Target script
-        CityBuildingSpawner spawner = (CityBuildingSpawner)target;
-
-        // Area Header
-        EditorGUILayout.LabelField("City Spawner Controls", EditorStyles.boldLabel);
-
-        // Buttons
-        #region Horizonal Layout
-        // Add horizontal layout for buttons
-        EditorGUILayout.BeginHorizontal();
-
-        // Spawn Buildings Button
-        if (GUILayout.Button("Spawn Buildings", GUILayout.Height(30)))
-        {
-            spawner.SpawnBuildings();
-        }
-
-        // Clear Buildings Button
-        GUI.backgroundColor = Color.red;
-        if (GUILayout.Button("Clear Buildings", GUILayout.Height(30)))
-        {
-            if (EditorUtility.DisplayDialog("Clear Buildings",
-                "Are you sure you want to clear all spawned buildings?",
-                "Yes", "Cancel"))
-            {
-                spawner.ClearBuildings();
-            }
-        }
-        GUI.backgroundColor = Color.white;
-
-        EditorGUILayout.EndHorizontal();
-        #endregion END - Horizonal Layout
-        
-        // Add space and separator
-        //EditorGUILayout.Space(10);
-        //EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-        EditorGUILayout.Space(5);
-
-        // Draw the default unity editor compnent
-        DrawDefaultInspector();
     }
 }

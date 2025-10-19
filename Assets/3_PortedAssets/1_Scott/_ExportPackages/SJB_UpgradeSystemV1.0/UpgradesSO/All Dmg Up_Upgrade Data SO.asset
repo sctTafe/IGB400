@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aeff8f02cbd3c8244ad3a50617d08c64, type: 3}
-  m_Name: Refill Ammo_Upgrade Data SO
+  m_Script: {fileID: 11500000, guid: 425ff212a9b263343bd068056819c99c, type: 3}
+  m_Name: All Dmg Up_Upgrade Data SO
   m_EditorClassIdentifier: 
-  _upgradeName: Full Reload
-  _description: Reload All Weapons
-  _icon: {fileID: 1946328105, guid: 22d9650479151e74081007f9f6a30d10, type: 3}
+  _upgradeName: All Dmg Up
+  _description: Increase All Weapons Damage
+  _icon: {fileID: 21300000, guid: 9ba952c1dd119ca45a623c6a00839d15, type: 3}

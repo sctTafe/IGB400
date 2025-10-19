@@ -20,6 +20,8 @@ public class EnemySpawner : MonoBehaviour
     private float nextBossSpawnTime;
     private bool delayingBasicSpawn = false;
 
+    bool isSpawningBosses;
+    bool isSpawningBasic;
     void Start()
     {
         if (player == null)
@@ -40,24 +42,40 @@ public class EnemySpawner : MonoBehaviour
 
         nextBasicSpawnTime = Time.time + basicEnemySpawnInterval;
         nextBossSpawnTime = Time.time + bossSpawnInterval;
+
+
+
+        if (bossPrefabs.Count > 0)
+            isSpawningBosses = true;
+
+        if (basicEnemyPrefabs.Count > 0)
+            isSpawningBasic = true;
     }
 
     void Update()
     {
-        if (player == null) return;
+        if (player == null) 
+            return;
 
-        // Check for basic enemy spawn
-        if (!delayingBasicSpawn && Time.time >= nextBasicSpawnTime && basicEnemyPrefabs.Count > 0)
+
+        if (isSpawningBasic)
         {
-            SpawnBasicEnemy();
-            nextBasicSpawnTime = Time.time + basicEnemySpawnInterval;
+            // Check for basic enemy spawn
+            if (!delayingBasicSpawn && Time.time >= nextBasicSpawnTime && basicEnemyPrefabs.Count > 0)
+            {
+                SpawnBasicEnemy();
+                nextBasicSpawnTime = Time.time + basicEnemySpawnInterval;
+            }
         }
 
-        // Check for boss spawn
-        if (Time.time >= nextBossSpawnTime && bossPrefabs.Count > 0)
+        if(isSpawningBosses)
         {
-            SpawnBoss();
-            nextBossSpawnTime = Time.time + bossSpawnInterval;
+            // Check for boss spawn
+            if (Time.time >= nextBossSpawnTime && bossPrefabs.Count > 0)
+            {
+                SpawnBoss();
+                nextBossSpawnTime = Time.time + bossSpawnInterval;
+            }
         }
     }
 

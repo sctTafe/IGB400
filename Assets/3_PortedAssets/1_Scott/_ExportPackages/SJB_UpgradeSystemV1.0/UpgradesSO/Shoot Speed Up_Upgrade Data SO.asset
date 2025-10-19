@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aeff8f02cbd3c8244ad3a50617d08c64, type: 3}
-  m_Name: Refill Ammo_Upgrade Data SO
+  m_Script: {fileID: 11500000, guid: e6e772970e22178449ba4cf706d7ba4d, type: 3}
+  m_Name: Shoot Speed Up_Upgrade Data SO
   m_EditorClassIdentifier: 
-  _upgradeName: Full Reload
-  _description: Reload All Weapons
-  _icon: {fileID: 1946328105, guid: 22d9650479151e74081007f9f6a30d10, type: 3}
+  _upgradeName: Reload Speed Up
+  _description: All Weapons Reload Speed Up
+  _icon: {fileID: 21300000, guid: 8ecc9125677319b409271afc0d4d8a74, type: 3}

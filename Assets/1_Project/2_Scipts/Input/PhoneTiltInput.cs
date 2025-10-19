@@ -52,7 +52,7 @@ public class PhoneTiltInput : MonoBehaviour
     private float _targetSteerAngle;
     private float _rawTiltValue;
 
-    public float fn_GetNormalizedSteerAngle () => _targetSteerAngle / maxSteerAngle;
+    public float fn_GetNormalizedSteerAngle() => _targetSteerAngle / maxSteerAngle;
 
     // Input Action references
     private InputAction _tiltAction;
@@ -70,7 +70,7 @@ public class PhoneTiltInput : MonoBehaviour
         if (_playerInput == null && Accelerometer.current != null)
         {
             InputSystem.EnableDevice(Accelerometer.current);
-            if(_isDebugging) Debug.Log("Using direct accelerometer access");
+            if (_isDebugging) Debug.Log("Using direct accelerometer access");
         }
 
         if (Accelerometer.current == null)
@@ -101,7 +101,7 @@ public class PhoneTiltInput : MonoBehaviour
 
             // Fallback for testing in editor or devices without accelerometer
             _rawTiltValue = input_Move.x * 0.5f;
-            if(_isDebugging) Debug.LogWarning("Using fallback input - no accelerometer available");
+            if (_isDebugging) Debug.LogWarning("Using fallback input - no accelerometer available");
         }
 
         // Apply dynamic dead zone
@@ -123,6 +123,9 @@ public class PhoneTiltInput : MonoBehaviour
 
         // Apply rotation
         // transform.localRotation = Quaternion.Euler(0f, CurrentSteerAngle, 0f);
+
+        // Update sliders with current values
+        UpdateSliderOutputs();
 
         // Debug visualization
         UpdateDebugUI();
@@ -170,6 +173,68 @@ public class PhoneTiltInput : MonoBehaviour
     }
 
 
+
+    #region Sider Visuals Output
+
+    [Header("Slider Output Controls")]
+    [Tooltip("Slider for positive raw tilt values (0 to 1).")]
+    public UI_SliderOutputControl _rawTiltPositiveSlider;
+
+    [Tooltip("Slider for negative raw tilt values (0 to -1).")]
+    public UI_SliderOutputControl _rawTiltNegativeSlider;
+
+    [Tooltip("Slider for positive target steer angle values.")]
+    public UI_SliderOutputControl _steerAnglePositiveSlider;
+
+    [Tooltip("Slider for negative target steer angle values.")]
+    public UI_SliderOutputControl _steerAngleNegativeSlider;
+
+    [Tooltip("Use lerp mode for slider updates (smoother but slightly delayed).")]
+    public bool _useLerpForSliders = false;
+
+
+    private void UpdateSliderOutputs()
+    {
+        // Update Raw Tilt Sliders
+        // Raw tilt typically ranges from -1 to 1, so we normalize to 0-1 for display
+        if (_rawTiltValue >= 0)
+        {
+            // Positive tilt - update positive slider, zero out negative
+            if (_rawTiltPositiveSlider != null)
+            {
+                if (_useLerpForSliders)
+                    _rawTiltPositiveSlider.fn_SetFillPct_Lerp(_rawTiltValue);
+                else
+                    _rawTiltPositiveSlider.fn_SetFillPct_NoLerp(_rawTiltValue);
+            }
+            if (_rawTiltNegativeSlider != null)
+            {
+                if (_useLerpForSliders)
+                    _rawTiltNegativeSlider.fn_SetFillPct_Lerp(0f);
+                else
+                    _rawTiltNegativeSlider.fn_SetFillPct_NoLerp(0f);
+            }
+        }
+        else
+        {
+            // Negative tilt - update negative slider, zero out positive
+            if (_rawTiltNegativeSlider != null)
+            {
+                if (_useLerpForSliders)
+                    _rawTiltNegativeSlider.fn_SetFillPct_Lerp(Mathf.Abs(_rawTiltValue));
+                else
+                    _rawTiltNegativeSlider.fn_SetFillPct_NoLerp(Mathf.Abs(_rawTiltValue));
+            }
+            if (_rawTiltPositiveSlider != null)
+            {
+                if (_useLerpForSliders)
+                    _rawTiltPositiveSlider.fn_SetFillPct_Lerp(0f);
+                else
+                    _rawTiltPositiveSlider.fn_SetFillPct_NoLerp(0f);
+            }
+        }
+
+        #endregion
+
+    }
 }
-
-

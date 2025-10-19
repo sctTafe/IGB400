@@ -1068,7 +1068,7 @@ TextureImporter:
         width: 992
         height: 88
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 37, z: 39, w: 36}
       customData: 
       outline: []
@@ -1090,7 +1090,7 @@ TextureImporter:
         width: 987
         height: 88
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 34, y: 37, z: 0, w: 36}
       customData: 
       outline: []
@@ -1099,6 +1099,28 @@ TextureImporter:
       bones: []
       spriteID: 8639ffe8daad6254a8aabfe5fc7dc3fa
       internalID: 2018206688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlas_white_v1_7
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 139
+        width: 685
+        height: 391
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d098631280c73d498bccb59630c1673
+      internalID: 335925392
       vertices: []
       indices: 
       edges: []
@@ -1162,6 +1184,7 @@ TextureImporter:
       atlas_white_v1_45: 2101215496
       atlas_white_v1_5: -524129635
       atlas_white_v1_6: 157910929
+      atlas_white_v1_7: 335925392
       atlas_white_v1_8: -1530437738
       atlas_white_v1_9: 399441576
       fillbar_left: -1613097797
