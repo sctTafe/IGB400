@@ -54,6 +54,7 @@ namespace Scott.Barley.v2
       
             enemyTransform = this.transform;
             originPosition = enemyTransform.position;
+            originPosition.y = 2f;
             enemyController = gameObject.AddComponent<CharacterController>();
         }
 
@@ -207,6 +208,20 @@ namespace Scott.Barley.v2
 
         private void Action_MoveToTarget()
         {
+
+            // Move to Correct Y Height First
+            Vector3 pos = transform.position;
+
+            if (Mathf.Abs(pos.y - _targetYValue) > 1f)
+            {
+                pos.y = Mathf.MoveTowards(pos.y, _targetYValue, moveToTargetMaxSpeed * Time.deltaTime);
+                transform.position = pos;
+                return;
+            }
+
+  
+
+            // Move Towards Atack Target
             float distance = Vector3.Distance(enemyTransform.position, moveToPosition);
             current_distanceToPoint = distance;
 
@@ -242,6 +257,7 @@ namespace Scott.Barley.v2
 
 
         bool needToWait_LOSLost_bool;
+        private float _targetYValue;
 
         private void wait_LOS_Lost_3s()
         {

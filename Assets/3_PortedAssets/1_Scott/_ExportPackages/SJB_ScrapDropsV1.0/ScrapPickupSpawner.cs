@@ -18,7 +18,7 @@ public class ScrapPickupSpawner : MonoBehaviour
         
     }
 
-    public void SpawnPrefabs()
+    public void fn_SpawnPrefabs()
     {
         if (prefabToSpawn == null || minYPoint == null || maxYPoint == null)
         {

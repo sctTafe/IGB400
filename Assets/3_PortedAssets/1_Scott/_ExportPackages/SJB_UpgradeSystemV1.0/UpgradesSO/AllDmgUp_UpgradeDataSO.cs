@@ -7,6 +7,7 @@ namespace Scott.Barley.v2
     {
         public override void fn_ApplyUpgrade(GameObject target)
         {
+            Debug.Log("AllDmgUp_UpgradeDataSO fn_ApplyUpgrade Called");
             WeaponsUpgradeRelay_Singelton.Instance.fn_AllDmgUp(1.1f);
         }
     }

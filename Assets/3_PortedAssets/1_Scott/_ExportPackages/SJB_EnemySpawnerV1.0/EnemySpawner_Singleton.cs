@@ -1,13 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Scott.Barley.v2;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner_Singleton : Singleton<EnemySpawner_Singleton>
 {
     [Header("Enemy Prefabs")]
     [SerializeField] private List<GameObject> basicEnemyPrefabs = new List<GameObject>();
@@ -23,8 +19,8 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("Health Scaling Settings")]
     [SerializeField] private int startingHealth = 10;
-    [SerializeField] private int healthAt4Minutes = 100;
-    [SerializeField] private float scalingDuration = 240f; // 4 minutes in seconds
+    [SerializeField] private int healthAtScaleDurationMax = 100;
+    [SerializeField] private float scalingDuration = 360; // seconds
     [SerializeField] private int bossHealthMultiplier = 5; // Bosses have 5x basic enemy health
 
     private float nextBasicSpawnTime;
@@ -69,17 +65,17 @@ public class EnemySpawner : MonoBehaviour
         if (isSpawningBasic)
         {
             // Check for basic enemy spawn
-            if (!delayingBasicSpawn && Time.time >= nextBasicSpawnTime && basicEnemyPrefabs.Count > 0)
+            if (Time.time >= nextBasicSpawnTime)
             {
                 SpawnBasicEnemy();
-                nextBasicSpawnTime = Time.time + basicEnemySpawnInterval;
+                
             }
         }
 
         if (isSpawningBosses)
         {
             // Check for boss spawn
-            if (Time.time >= nextBossSpawnTime && bossPrefabs.Count > 0)
+            if (Time.time >= nextBossSpawnTime)
             {
                 SpawnBoss();
                 nextBossSpawnTime = Time.time + bossSpawnInterval;
@@ -96,7 +92,7 @@ public class EnemySpawner : MonoBehaviour
 
         // Calculate linear interpolation from starting health to health at 4 minutes
         float t = Mathf.Clamp01(elapsedTime / scalingDuration);
-        int scaledHealth = Mathf.RoundToInt(Mathf.Lerp(startingHealth, healthAt4Minutes, t));
+        int scaledHealth = Mathf.RoundToInt(Mathf.Lerp(startingHealth, healthAtScaleDurationMax, t));
 
         // Add permanent bonus from public function calls
         return scaledHealth + permanentHealthBonus;
@@ -104,6 +100,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnBasicEnemy()
     {
+        nextBasicSpawnTime = Time.time + basicEnemySpawnInterval;
+
         GameObject prefab = basicEnemyPrefabs[Random.Range(0, basicEnemyPrefabs.Count)];
         Vector3 spawnPos = new Vector3(player.position.x, player.position.y + spawnHeightBasic, player.position.z);
 

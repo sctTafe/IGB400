@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: ScottBarley
+  companyName: Scott Barley
   productName: DroneAI
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -140,7 +140,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: Wk12_2
+  bundleVersion: 'Build: Week13 V1.0'
   preloadedAssets:
   - {fileID: 0}
   - {fileID: 0}

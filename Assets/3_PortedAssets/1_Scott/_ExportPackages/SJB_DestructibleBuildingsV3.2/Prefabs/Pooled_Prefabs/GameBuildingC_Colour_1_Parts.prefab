@@ -4578,6 +4578,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 449664052368428173, guid: d791bcf1007f9da418b46ae4179144e0, type: 3}
+      propertyPath: spawnCount
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8395853915692841787, guid: d791bcf1007f9da418b46ae4179144e0, type: 3}
       propertyPath: m_Name
       value: ScapSpawner

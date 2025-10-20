@@ -73,7 +73,7 @@ namespace Scott.Barley.v2
 
         public void fn_SpawnScrap()
         {
-            _ScrapSpawner.SpawnPrefabs();
+            _ScrapSpawner.fn_SpawnPrefabs();
         }
 
 
@@ -114,7 +114,8 @@ namespace Scott.Barley.v2
 
         public void fnc_RetrunToPool()
         {
-            if (destructibleBuilding_ObjectPooling == null) ConnectToObjectPoolInstance();
+            if (destructibleBuilding_ObjectPooling == null) 
+                ConnectToObjectPoolInstance();
 
             if (destructibleBuilding_ObjectPooling != null)
             {
@@ -132,6 +133,10 @@ namespace Scott.Barley.v2
             {
                 Debug.LogError("::DestructibleBuilding_ParticleSystemControl:: Cannot Find its pool to return to!!!");
             }
+
+            //Trigger the Spawning of An Enemy
+            if (EnemySpawner_Singleton.Instance)
+                EnemySpawner_Singleton.Instance.fn_SpawnEnemyAndIncreaseHealth();
 
         }
     }

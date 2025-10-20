@@ -32,6 +32,7 @@ namespace Scott.Barley.v2
             //Reload(_WeaponSlotData_4_MisWing);
         }
 
+        //  Apply to all weapons types
         public void fn_ReloadAll()
         {
             foreach (var ws in _weaponSlotsList)
@@ -44,7 +45,7 @@ namespace Scott.Barley.v2
         {
             foreach (var ws in _weaponSlotsList)
             {
-                Reload(ws);
+                DmgUp(ws);
             }
         }
 
@@ -52,9 +53,11 @@ namespace Scott.Barley.v2
         {
             foreach (var ws in _weaponSlotsList)
             {
-                Reload(ws);
+                ShootSpeedUp(ws);
             }
         }
+
+
 
         void Reload(Projectiles_WeaponSlotData wsd)
         {
