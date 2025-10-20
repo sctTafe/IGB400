@@ -77,6 +77,24 @@ namespace Scott.Barley.v2
             return maxHealth;
         }
 
+        public void fn_SetCurrentHealth(int value) 
+        {
+            currentHealth = value;
+            if(currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
+        }
+        public void fn_SetMaxHealth(int value)
+        {
+            maxHealth = value;
+        }
+
+        public void fn_SetNewMaxAndCurrentHealth(int value)
+        {
+            fn_SetMaxHealth(value);
+            fn_SetCurrentHealth(value);
+        }
 
         public void fnc_RemoveHealth(int damage)
         {
@@ -237,7 +255,7 @@ namespace Scott.Barley.v2
 
         private void ConnectTo__Player_Stats()
         {
-            player_Stats = FindObjectOfType<Player_Stats>();
+            player_Stats = Player_Stats.Instance;
         }
 
 

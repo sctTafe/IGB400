@@ -168,10 +168,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player_tag: Player
-  weapon_tag: Projectile_Prefab_Wing_Missile_TypeA
-  playerIsInRange_Distance: 80
+  weapon_tag: Projectile_Prefab_Vertical_Missile_TypeA
+  playerIsInRange_Distance: 40
   requireLineOfSightToFire: 1
-  fireRate_waitBetweenShots: 1
+  fireRate_waitBetweenShots: 3
   point_ShootFromPoint_transform: {fileID: 2862753094141384199}
 --- !u!135 &8789355790526870539
 SphereCollider:
@@ -192,7 +192,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 90
+  m_Radius: 70
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3817781788527056259
 GameObject:
@@ -311,7 +311,7 @@ GameObject:
   - component: {fileID: 1757623340833053553}
   - component: {fileID: -4054938699238678517}
   m_Layer: 0
-  m_Name: EnemyOrca_Type1
+  m_Name: EnemyOrca_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -374,14 +374,14 @@ MonoBehaviour:
   requireLineOfSightToMoveToTarget: 0
   LOS_CheckPoinTransform: {fileID: 2862753094141384199}
   originPosition: {x: 0, y: 0, z: 0}
-  engagementDistance_ToTarget_yellow: 150
-  disengagementDistance_FromOrigin_red: 200
-  moveToTargetMaxSpeed: 20
+  engagementDistance_ToTarget_yellow: 50
+  disengagementDistance_FromOrigin_red: 100
+  moveToTargetMaxSpeed: 8
   maxRotationSpeed: 30
-  movementSlowingDistance_10pct: 25
-  movementSlowingDistance_30pct: 50
-  drunkWalkRadius_FromOrigin_green: 150
-  drunkWalkRadius_timeBetweenNextPoint: 10
+  movementSlowingDistance_10pct: 30
+  movementSlowingDistance_30pct: 40
+  drunkWalkRadius_FromOrigin_green: 60
+  drunkWalkRadius_timeBetweenNextPoint: 8
   debugON: 1
   current_MoveToPoint: {x: 0, y: 0, z: 0}
   current_distanceToPoint: 0
@@ -448,6 +448,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _OnDeathScoreValue: 0
 --- !u!114 &1757623340833053553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,6 +462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yValue: 2
+  moveSpeed: 3
 --- !u!114 &-4054938699238678517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -498,7 +500,7 @@ Transform:
   m_GameObject: {fileID: 5500216118058015546}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.21, z: 0}
+  m_LocalPosition: {x: 0, y: 3.65, z: -5.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20217,7 +20219,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8c10a9aae4f50da4fb06b3a73eb68042, type: 2}
+  - {fileID: 2100000, guid: 913fcef5c8fb4fa41b0632b4d746729e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

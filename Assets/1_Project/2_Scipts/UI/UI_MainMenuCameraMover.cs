@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
-public class MainMenuCameraMover : MonoBehaviour
+public class UI_MainMenuCameraMover : MonoBehaviour
 {
     [Header("Camera Move Settings")]
     public Vector3 mainMenuPosition;

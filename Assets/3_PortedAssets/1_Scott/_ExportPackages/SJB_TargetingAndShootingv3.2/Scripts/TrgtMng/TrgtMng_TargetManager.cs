@@ -58,8 +58,9 @@ namespace Scott.Barley.v2 {
         [Header("Targeting Auto Lock")]
         //[SerializeField] bool targetLockisOverridden = true;
         [SerializeField] float _autoLockTriggerDistance = 20f;
-        
- 
+        [SerializeField] float _autoLockDisenguageDistance = 40f;
+
+
 
         private bool noTargetInvokeCalled; // used so the noTargetInvoke Is only called once till reset
 
@@ -207,7 +208,7 @@ namespace Scott.Barley.v2 {
             Gizmos.DrawWireSphere(nonTargetLockTargetTransform.position, _autoLockTriggerDistance);
 
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(nonTargetLockTargetTransform.position, _autoLockTriggerDistance * 1.5f);
+            Gizmos.DrawWireSphere(nonTargetLockTargetTransform.position, _autoLockDisenguageDistance);
         }
 
         private void AutoTargetNearest()
@@ -224,7 +225,7 @@ namespace Scott.Barley.v2 {
                 //Check target is still within 1.5* the auto target distance, else try get new auto target
                 var currentDis = Vector3.Distance(target.transform.position, nonTargetLockTargetTransform.position);
 
-                if (currentDis < _autoLockTriggerDistance * 1.5f)
+                if (currentDis < _autoLockDisenguageDistance)
                     return;
 
                 //If outside the auto lock position, reaquire colosest target

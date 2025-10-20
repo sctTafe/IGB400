@@ -6,7 +6,7 @@ using Scott.Barley.v2;
 
 namespace Scott.Barley.v2
 {
-    public class Player_Stats : MonoBehaviour
+    public class Player_Stats : Singleton<Player_Stats>
     {
         [SerializeField] float energyBurnRate_PerSecond;
 
