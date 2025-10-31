@@ -58,7 +58,10 @@ namespace Scott.Barley.v2
             Update_UpgradeTrigger();
         }
 
-
+        public int fn_GetScore() 
+        {
+            return _score;
+        }
 
         public void fn_AddToScore(int valueToAdd)
         {
@@ -71,11 +74,12 @@ namespace Scott.Barley.v2
             _scrap += valueToAdd;
             _scrap_txt.text = _scrap.ToString();
 
-            float percentage = (_scrap / (float)_currentUpgradeCost) * 100f;
-            percentage = Mathf.Min(percentage, 100f); // Cap at 100%
+            float percentage = ((float)_scrap / (float)_currentUpgradeCost);
+            percentage = Mathf.Min(percentage, 1f); // Cap at 100% = 1
 
             _Scrap_SliderOutputControl_L?.fn_SetFillPct_Lerp(percentage);
             _Scrap_SliderOutputControl_R?.fn_SetFillPct_Lerp(percentage);
+            Debug.Log($"UI_Score_Singelton; fn_AddToScrap: value: {percentage} pct");
         }
 
         void UpdateUpgradeCost()
@@ -100,8 +104,10 @@ namespace Scott.Barley.v2
                 _Scrap_SliderOutputControl_R?.fn_SetFillPct_NoLerp(0);
 
                 _scrap = leftOver;
-                float percentage = (_scrap / (float)_currentUpgradeCost) * 100f;
-                percentage = Mathf.Min(percentage, 100f); // Cap at 100%
+                _scrap_txt.text = _scrap.ToString();
+
+                float percentage = ((float)_scrap / (float)_currentUpgradeCost);
+                percentage = Mathf.Min(percentage, 1f); // Cap at 100% = 1
 
                 _Scrap_SliderOutputControl_L?.fn_SetFillPct_Lerp(percentage);
                 _Scrap_SliderOutputControl_R?.fn_SetFillPct_Lerp(percentage);

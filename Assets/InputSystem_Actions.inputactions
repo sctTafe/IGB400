@@ -94,6 +94,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Accelerometer",
+                    "type": "Button",
+                    "id": "67af9817-8cfc-47f2-82ce-c749c941f026",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -484,11 +493,22 @@
                 },
                 {
                     "name": "",
-                    "id": "c764a01d-a859-4d1d-a747-69285ae53cc3",
+                    "id": "612a83df-7492-4bee-8d15-5ccd5e0a6e95",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Accelerometer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1e745ec0-e883-4951-b787-071cba71e734",
                     "path": "<Accelerometer>/acceleration",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad;XR",
+                    "groups": ";Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
                     "action": "Tilt",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1006,6 +1026,34 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Mobile",
+            "id": "0a788c43-a09e-4dae-ab55-a26dc952e3f5",
+            "actions": [
+                {
+                    "name": "Accelerometer",
+                    "type": "Value",
+                    "id": "3291b5be-e423-4f8d-91a4-519c2436aa1c",
+                    "expectedControlType": "Vector3",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9b4dbf45-29fb-48d9-a79d-f92a4c280bb6",
+                    "path": "<Accelerometer>/acceleration",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Accelerometer",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

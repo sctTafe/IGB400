@@ -25,12 +25,12 @@ public class UI_PauseMenuManager : MonoBehaviour
         // Set up button listeners
         if (pauseButton != null)
         {
-            pauseButton.onClick.AddListener(OpenPauseMenu);
+            pauseButton.onClick.AddListener(fn_OpenPauseMenu);
         }
 
         if (resumeButton != null)
         {
-            resumeButton.onClick.AddListener(ClosePauseMenu);
+            resumeButton.onClick.AddListener(fn_ClosePauseMenu);
         }
     }
 
@@ -39,16 +39,16 @@ public class UI_PauseMenuManager : MonoBehaviour
         // Clean up listeners to prevent memory leaks
         if (pauseButton != null)
         {
-            pauseButton.onClick.RemoveListener(OpenPauseMenu);
+            pauseButton.onClick.RemoveListener(fn_OpenPauseMenu);
         }
 
         if (resumeButton != null)
         {
-            resumeButton.onClick.RemoveListener(ClosePauseMenu);
+            resumeButton.onClick.RemoveListener(fn_ClosePauseMenu);
         }
     }
 
-    public void OpenPauseMenu()
+    public void fn_OpenPauseMenu()
     {
         if (isPaused) return;
 
@@ -64,7 +64,7 @@ public class UI_PauseMenuManager : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-    public void ClosePauseMenu()
+    public void fn_ClosePauseMenu()
     {
         if (!isPaused) return;
 

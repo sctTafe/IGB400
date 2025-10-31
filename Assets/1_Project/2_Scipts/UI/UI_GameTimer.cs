@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class UI_GameTimer : MonoBehaviour
+public class UI_GameTimer : Singleton<UI_GameTimer>
 {
     [SerializeField] private TextMeshProUGUI timerText;
 
@@ -41,7 +41,7 @@ public class UI_GameTimer : MonoBehaviour
         elapsedTime = 0f;
     }
 
-    public float GetElapsedTime()
+    public float fn_GetElapsedTime()
     {
         return elapsedTime;
     }

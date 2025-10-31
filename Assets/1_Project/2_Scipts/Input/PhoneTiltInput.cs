@@ -57,13 +57,25 @@ public class PhoneTiltInput : MonoBehaviour
     // Input Action references
     private InputAction _tiltAction;
 
+
+#if UNITY_EDITOR
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void EnableSensors()
+    {
+        InputSystem.AddDevice<Accelerometer>();
+        InputSystem.EnableDevice(Accelerometer.current);
+    }
+#endif
+
     void Start()
     {
+        if (_isDebugging) Debug.Log("PhoneTiltInput: Start");
         // Setup Input Actions
         if (_playerInput != null)
         {
             _tiltAction = _playerInput.actions["Tilt"];
             _tiltAction.Enable();
+            if (_isDebugging) Debug.Log("Using direct accelerometer access");
         }
 
         // Fallback: Enable the accelerometer directly if no Input Actions
@@ -81,16 +93,20 @@ public class PhoneTiltInput : MonoBehaviour
 
     void Update()
     {
-        Vector3 acceleration = Vector3.zero;
 
+        _rawTiltValue = Accelerometer.current.acceleration.ReadValue().x;
+        
+        /*
+        Vector3 acceleration = Vector3.zero;
+        
         //// Method 1: Use Input Action if available
-        //if (_tiltAction != null && _tiltAction.enabled)
-        //{
-        //    acceleration = _tiltAction.ReadValue<Vector3>();
-        //    _rawTiltValue = acceleration.x;
-        //}
+        if (_tiltAction != null && _tiltAction.enabled)
+        {
+            acceleration = _tiltAction.ReadValue<Vector3>();
+            _rawTiltValue = acceleration.x;
+        }
         // Method 2: Fallback to direct accelerometer access
-        if (Accelerometer.current != null)
+        else if (Accelerometer.current != null)
         {
             acceleration = Accelerometer.current.acceleration.ReadValue();
             _rawTiltValue = acceleration.x;
@@ -103,6 +119,8 @@ public class PhoneTiltInput : MonoBehaviour
             _rawTiltValue = input_Move.x * 0.5f;
             if (_isDebugging) Debug.LogWarning("Using fallback input - no accelerometer available");
         }
+
+        */
 
         // Apply dynamic dead zone
         float dynamicDeadZone = baseDeadZone + Mathf.Abs(_rawTiltValue) * deadZoneScaling;
@@ -195,46 +213,60 @@ public class PhoneTiltInput : MonoBehaviour
 
     private void UpdateSliderOutputs()
     {
+
+        #region Raw Tilt
         // Update Raw Tilt Sliders
         // Raw tilt typically ranges from -1 to 1, so we normalize to 0-1 for display
-        if (_rawTiltValue >= 0)
+        if (_isDebugging) Debug.Log($"PhoneTiltInput: _raw Tilt Value Steer Angle = {_rawTiltValue}");
+
+        if (_rawTiltPositiveSlider != null && _rawTiltNegativeSlider != null)
         {
-            // Positive tilt - update positive slider, zero out negative
-            if (_rawTiltPositiveSlider != null)
+
+
+            if (_rawTiltValue >= 0)
             {
-                if (_useLerpForSliders)
-                    _rawTiltPositiveSlider.fn_SetFillPct_Lerp(_rawTiltValue);
-                else
-                    _rawTiltPositiveSlider.fn_SetFillPct_NoLerp(_rawTiltValue);
+                // Positive tilt - update positive slider, zero out 
+                _rawTiltPositiveSlider.fn_SetFillPct_NoLerp(_rawTiltValue);
+                _rawTiltNegativeSlider.fn_SetFillPct_NoLerp(0f);
             }
-            if (_rawTiltNegativeSlider != null)
+            else
             {
-                if (_useLerpForSliders)
-                    _rawTiltNegativeSlider.fn_SetFillPct_Lerp(0f);
-                else
-                    _rawTiltNegativeSlider.fn_SetFillPct_NoLerp(0f);
+                // Negative tilt - update negative slider, zero out positive
+                _rawTiltNegativeSlider.fn_SetFillPct_NoLerp(Mathf.Abs(_rawTiltValue));
+                _rawTiltPositiveSlider.fn_SetFillPct_NoLerp(0f);
             }
         }
-        else
+        #endregion
+
+        #region Normalized Steer Angle
+        // Update Raw Tilt Sliders
+        // Raw tilt typically ranges from -1 to 1, so we normalize to 0-1 for display
+        var nsv = fn_GetNormalizedSteerAngle();
+
+        if(_isDebugging) Debug.Log($"PhoneTiltInput: Normalized Steer Angle = {nsv}");
+
+        if(_steerAnglePositiveSlider != null && _steerAngleNegativeSlider != null)
         {
-            // Negative tilt - update negative slider, zero out positive
-            if (_rawTiltNegativeSlider != null)
+            if (nsv >= 0)
             {
-                if (_useLerpForSliders)
-                    _rawTiltNegativeSlider.fn_SetFillPct_Lerp(Mathf.Abs(_rawTiltValue));
-                else
-                    _rawTiltNegativeSlider.fn_SetFillPct_NoLerp(Mathf.Abs(_rawTiltValue));
+                // Positive tilt - update positive slider, zero out negative
+                _steerAnglePositiveSlider.fn_SetFillPct_NoLerp(nsv);
+                _steerAngleNegativeSlider.fn_SetFillPct_NoLerp(0f);
             }
-            if (_rawTiltPositiveSlider != null)
+            else
             {
-                if (_useLerpForSliders)
-                    _rawTiltPositiveSlider.fn_SetFillPct_Lerp(0f);
-                else
-                    _rawTiltPositiveSlider.fn_SetFillPct_NoLerp(0f);
+                // Negative tilt - update negative slider, zero out positive
+                _steerAngleNegativeSlider.fn_SetFillPct_NoLerp(Mathf.Abs(nsv));
+                _steerAnglePositiveSlider.fn_SetFillPct_NoLerp(0f);
             }
         }
+
 
         #endregion
 
+
+        //fn_GetNormalizedSteerAngle()
     }
+
+    #endregion
 }
