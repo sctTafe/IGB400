@@ -42,6 +42,8 @@ namespace Scott.Barley.v2
 
         Rigidbody rigidbody;
 
+        UI_SpeedBar_Singelton uI_SpeedBar_Singelton;
+        float _currentSpeed; // Keeps Track of current speed (horazontal magantude)
 
         private float pitch = 0f; //x axis
         private float strafe = 0; // y axis
@@ -59,6 +61,8 @@ namespace Scott.Barley.v2
         {
             rigidbody = this.GetComponent<Rigidbody>();
             rigidbody.maxAngularVelocity = maxRotationSpeed;
+            
+            uI_SpeedBar_Singelton = UI_SpeedBar_Singelton.Instance;
         }
 
 
@@ -104,17 +108,23 @@ namespace Scott.Barley.v2
             VerticalBoundaryForces();
 
             LimitMaxSpeed();
+
+            OutputSpeedToUI();
         }
 
 
-
-
+        private void OutputSpeedToUI()
+        {
+            if (uI_SpeedBar_Singelton)           
+                uI_SpeedBar_Singelton.fn_SetValue(_currentSpeed / _maxSpeed, false, _currentSpeed);        
+        }
+        
         private void LimitMaxSpeed()
         {
             Vector3 horizontalVelocity = new Vector3(rigidbody.linearVelocity.x, 0, rigidbody.linearVelocity.z);
-            float currentSpeed = horizontalVelocity.magnitude;
+            _currentSpeed = horizontalVelocity.magnitude;
 
-            if (currentSpeed > _maxSpeed)
+            if (_currentSpeed > _maxSpeed)
             {
                 Vector3 limitedVelocity = horizontalVelocity.normalized * _maxSpeed;
                 rigidbody.linearVelocity = new Vector3(limitedVelocity.x, rigidbody.linearVelocity.y, limitedVelocity.z);

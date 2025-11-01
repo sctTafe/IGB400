@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Scott.Barley.v2;
+using UnityEditor.Rendering;
 
 namespace Scott.Barley.v2
 {
@@ -108,8 +109,13 @@ namespace Scott.Barley.v2
                     if (isOnPlayer)
                     {
                         float damage_f = -damage * 1f;
-                        if (player_Stats == null) ConnectTo__Player_Stats();
+                        
+                        if (player_Stats == null) 
+                            ConnectTo__Player_Stats();
+
+                        Debug.Log("fnc_RemoveHealth Called");
                         player_Stats?.fnc_changeHealth(damage_f);
+                        
                         currentHealth = 999999;
                     }
 
