@@ -10,6 +10,7 @@ public class ClearTheCity_GameManager : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private TextMeshProUGUI enemiesRemainingText;
     [SerializeField] private GameObject winPanel;
+    [SerializeField] private GameObject losePanel;
 
     [Header("Last Enemy Tracker")]
     [SerializeField] private GameObject lastEnemyPanel;
@@ -25,14 +26,23 @@ public class ClearTheCity_GameManager : MonoBehaviour
     private bool gameStarted = false;
     private bool gameEnded = false;
 
+    PlayerStats_Singleton playerStats_Singleton;
     void Start()
     {
+        playerStats_Singleton = PlayerStats_Singleton.Instance;
+        Time.timeScale = 1f;
+
         // Initialize the game
         if (winPanel != null)
         {
             winPanel.SetActive(false);
         }
 
+        if (losePanel != null)
+        {
+            losePanel.SetActive(false);
+        }
+      
         if (lastEnemyPanel != null)
         {
             lastEnemyPanel.SetActive(false);
@@ -62,8 +72,13 @@ public class ClearTheCity_GameManager : MonoBehaviour
 
             // Check for win condition
             CheckWinCondition();
+
+            // Check For Lose Condition
+            CheckLoseCondition();
         }
     }
+
+
 
     /// <summary>
     /// Removes null references from the enemies list
@@ -125,6 +140,28 @@ public class ClearTheCity_GameManager : MonoBehaviour
         }
     }
 
+    private void CheckLoseCondition()
+    {
+        if (playerStats_Singleton)
+        {
+            if (playerStats_Singleton.playerIsDead == true)
+            {
+                TriggerLose();
+            }
+        }
+
+    }
+
+    private void TriggerLose()
+    {
+        if (losePanel != null)
+        {
+            losePanel.SetActive(true);
+        }
+        Time.timeScale = 0f;
+    }
+
+
     /// <summary>
     /// Called when the player wins the game
     /// </summary>
@@ -132,6 +169,7 @@ public class ClearTheCity_GameManager : MonoBehaviour
     {
         gameEnded = true;
         endTime = Time.time;
+        Time.timeScale = 0f;
 
         float timeTaken = endTime - startTime;
         int score = CalculateScore(timeTaken);

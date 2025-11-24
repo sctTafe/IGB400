@@ -9,7 +9,13 @@ EditorBuildSettings:
     path: Assets/1_Project/1_Scenes/0_Menu.unity
     guid: c93a7e376e28d8541acca04959ba1d63
   - enabled: 1
-    path: Assets/1_Project/1_Scenes/1_Game.unity
+    path: Assets/1_Project/1_Scenes/1_1_FlyToFinishPoint.unity
+    guid: 74d5e38b30bb8bf47aa0e5ddfb0c15e4
+  - enabled: 1
+    path: Assets/1_Project/1_Scenes/1_2_ClearTheCity.unity
+    guid: 140c8a8efa17d4d499073aa30cf06114
+  - enabled: 1
+    path: Assets/1_Project/1_Scenes/1_3_Outlast.unity
     guid: 226cfc0b1d7f3584db249a04ad90e276
   - enabled: 1
     path: Assets/1_Project/1_Scenes/2_Settings.unity

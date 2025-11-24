@@ -28,10 +28,10 @@ namespace Scott.Barley.v2
         private float waitTillTime;
 
 
-        private Player_Stats player_Stats;
+        private PlayerStats_Singleton player_Stats;
         private void Start()
         {
-            player_Stats = FindObjectOfType<Player_Stats>();  //Assumes the is only a single version of this!!
+            player_Stats = FindObjectOfType<PlayerStats_Singleton>();  //Assumes the is only a single version of this!!
             setVariables();
         }
 

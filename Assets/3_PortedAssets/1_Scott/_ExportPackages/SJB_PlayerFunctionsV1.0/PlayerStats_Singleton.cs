@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Scott.Barley.v2;
 
-public class Player_Stats : Singleton<Player_Stats>
+public class PlayerStats_Singleton : Singleton<PlayerStats_Singleton>
 {
     [SerializeField] float energyBurnRate_PerSecond;
 
@@ -98,8 +98,8 @@ public class Player_Stats : Singleton<Player_Stats>
             if (timeTowaitTill <= Time.time)
             {
                 playerIsDead = true;
-                Action_IsDead_ResetValuesOnDeath();
-                _Wait_3Seconds();
+                //Action_IsDead_ResetValuesOnDeath();
+                //_Wait_3Seconds();
             }
         }           
     }

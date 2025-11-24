@@ -70,57 +70,52 @@ public class PhoneTiltInput : MonoBehaviour
     void Start()
     {
         if (_isDebugging) Debug.Log("PhoneTiltInput: Start");
+
+        // Check if accelerometer exists FIRST
+        if (Accelerometer.current == null)
+        {
+            Debug.LogError("No accelerometer found on this device!");
+        }
+        else
+        {
+            // Only enable if it exists
+            InputSystem.EnableDevice(Accelerometer.current);
+            if (_isDebugging) Debug.Log("Accelerometer enabled successfully!");
+        }
+
         // Setup Input Actions
         if (_playerInput != null)
         {
             _tiltAction = _playerInput.actions["Tilt"];
             _tiltAction.Enable();
-            if (_isDebugging) Debug.Log("Using direct accelerometer access");
-        }
-
-        // Fallback: Enable the accelerometer directly if no Input Actions
-        if (_playerInput == null && Accelerometer.current != null)
-        {
-            InputSystem.EnableDevice(Accelerometer.current);
-            if (_isDebugging) Debug.Log("Using direct accelerometer access");
-        }
-
-        if (Accelerometer.current == null)
-        {
-            if (_isDebugging) Debug.LogWarning("No accelerometer found on this device!");
+            if (_isDebugging) Debug.Log("Tilt action enabled");
         }
     }
 
     void Update()
     {
 
-        _rawTiltValue = Accelerometer.current.acceleration.ReadValue().x;
-        
-        /*
-        Vector3 acceleration = Vector3.zero;
-        
-        //// Method 1: Use Input Action if available
-        if (_tiltAction != null && _tiltAction.enabled)
+
+        // Try accelerometer first (mobile devices)
+        if (Accelerometer.current != null)
         {
-            acceleration = _tiltAction.ReadValue<Vector3>();
+            _rawTiltValue = Accelerometer.current.acceleration.ReadValue().x;
+        }
+        // Fallback to Input Action if available
+        else if (_tiltAction != null && _tiltAction.enabled)
+        {
+            var acceleration = _tiltAction.ReadValue<Vector3>();
             _rawTiltValue = acceleration.x;
         }
-        // Method 2: Fallback to direct accelerometer access
-        else if (Accelerometer.current != null)
-        {
-            acceleration = Accelerometer.current.acceleration.ReadValue();
-            _rawTiltValue = acceleration.x;
-        }
-        else
+        // Final fallback for testing
+        else if (_playerInput != null)
         {
             Vector2 input_Move = _playerInput.actions["Move"].ReadValue<Vector2>();
-
-            // Fallback for testing in editor or devices without accelerometer
             _rawTiltValue = input_Move.x * 0.5f;
-            if (_isDebugging) Debug.LogWarning("Using fallback input - no accelerometer available");
+            if (_isDebugging) Debug.LogWarning("Using keyboard fallback - no accelerometer available");
         }
 
-        */
+
 
         // Apply dynamic dead zone
         float dynamicDeadZone = baseDeadZone + Mathf.Abs(_rawTiltValue) * deadZoneScaling;

@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using Scott.Barley.v2;
-using UnityEditor.Rendering;
 
 namespace Scott.Barley.v2
 {
@@ -45,7 +41,7 @@ namespace Scott.Barley.v2
         [SerializeField] private int _OnDeathScoreValue; 
 
         // Is On Player
-        Player_Stats player_Stats;
+        PlayerStats_Singleton player_Stats;
         private Score_TriggerRelay _ScoreTrigger;
 
         private void Start()
@@ -261,7 +257,7 @@ namespace Scott.Barley.v2
 
         private void ConnectTo__Player_Stats()
         {
-            player_Stats = Player_Stats.Instance;
+            player_Stats = PlayerStats_Singleton.Instance;
         }
 
 
